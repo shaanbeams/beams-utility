@@ -189,7 +189,7 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                               },
                               duration: const Duration(milliseconds: 100),
                               child: const Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                  padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                                   child: Icon(
                                     Icons.arrow_back_ios_new_rounded,
                                     color: ThemeColors.white,

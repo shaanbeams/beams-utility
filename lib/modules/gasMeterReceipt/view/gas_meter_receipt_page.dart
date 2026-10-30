@@ -100,7 +100,7 @@ class _GasMeterReadingReceiptPageState
             children: [
               Container(
                 width: double.infinity,
-                height: Get.size.height / 3.5,
+              
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -114,114 +114,121 @@ class _GasMeterReadingReceiptPageState
                     borderRadius: const BorderRadius.only(
                       bottomRight: Radius.circular(50),
                     )),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 50, bottom: 10),
-                      child: Row(
-                        children: [
-                          Bounce(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            duration: const Duration(milliseconds: 100),
-                            child: const Padding(
-                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Icon(
-                                  Icons.arrow_back_ios_new_rounded,
-                                  color: ThemeColors.white,
-                                )),
-                          ),
-                          Image.asset(
-                            "assets/icons/receipt.png",
-                            height: 40,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Text(
-                              "Gas Meter \n Receipt",
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.poppins(
-                                  color: ThemeColors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                              flex: 3,
-                              child: CustomSearchField(
-                                labelColor: Colors.white,
-                                label: "Request Doc No",
-                                labelYn: true,
-                                hintLabel: "Request Doc No",
-                                controller: gasMeterReadingReceiptController
-                                    .txtDocNumController,
-                                onSearchTap: () {
-                                  List searchColumn = [
-                                    {
-                                      "showItem": true,
-                                      "columnName": "DOCNO",
-                                      "showName": "Document No"
-                                    },
-                                    {
-                                      "showItem": true,
-                                      "columnName": "DOCTYPE",
-                                      "showName": "DocType"
-                                    },
-                                  ];
-                                  Get.dialog(lookUpDialogue(
-                                    callBackFn: (value) {
-                                      gasMeterReadingReceiptController
-                                          .txtDocNumController
-                                          .text = value["DOCNO"];
-                                      gasMeterReadingReceiptController
-                                          .fnGetLastGasMeterReceipt(
-                                              mode: "VIEW",
-                                              docNo: value["DOCNO"]);
-                                      Get.back();
-                                    },
-                                    tableName: "GREC",
-                                    filter: [],
-                                    searchColumn: searchColumn,
-                                  ));
-                                },
-                              )
+                child: SafeArea(
+                  bottom: false,
+                  child: Padding(
+                         padding: const EdgeInsets.fromLTRB(16, 8, 16, 12), // Reduced vertical padding
 
-                              //  CustomSearchField(
-                              //   labelColor: Colors.white,
-                              //   label: "Request Doc No",
-                              //   labelYn: true,
-                              //   hintLabel: "Request Doc No",
-                              //   controller: gasMeterReadingReceiptController
-                              //       .txtDocNumController,
-                              // ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8, bottom: 8),
+                          child: Row(
+                            children: [
+                              Bounce(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                duration: const Duration(milliseconds: 100),
+                                child: const Padding(
+                                    padding: EdgeInsets.fromLTRB(0  , 0, 20, 0),
+                                    child: Icon(
+                                      Icons.arrow_back_ios_new_rounded,
+                                      color: ThemeColors.white,
+                                    )),
                               ),
-                          gapWC(10),
-                          Expanded(
-                            flex: 2,
-                            child: Row(
-                              children: [
-                                _tHead(
-                                  title: "Date : ",
+                              Image.asset(
+                                "assets/icons/receipt.png",
+                                height: 38,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Text(
+                                  "Gas Meter Receipt",
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.poppins(
+                                      color: ThemeColors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                _tValue(
-                                    value: Helper.convertDateFormat2(
-                                        dateTime: DateTime.now().toString())),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                  flex: 3,
+                                  child: CustomSearchField(
+                                    labelColor: Colors.white,
+                                    label: "Request Doc No",
+                                    labelYn: true,
+                                    hintLabel: "Request Doc No",
+                                    controller: gasMeterReadingReceiptController
+                                        .txtDocNumController,
+                                    onSearchTap: () {
+                                      List searchColumn = [
+                                        {
+                                          "showItem": true,
+                                          "columnName": "DOCNO",
+                                          "showName": "Document No"
+                                        },
+                                        {
+                                          "showItem": true,
+                                          "columnName": "DOCTYPE",
+                                          "showName": "DocType"
+                                        },
+                                      ];
+                                      Get.dialog(lookUpDialogue(
+                                        callBackFn: (value) {
+                                          gasMeterReadingReceiptController
+                                              .txtDocNumController
+                                              .text = value["DOCNO"];
+                                          gasMeterReadingReceiptController
+                                              .fnGetLastGasMeterReceipt(
+                                                  mode: "VIEW",
+                                                  docNo: value["DOCNO"]);
+                                          Get.back();
+                                        },
+                                        tableName: "GREC",
+                                        filter: [],
+                                        searchColumn: searchColumn,
+                                      ));
+                                    },
+                                  )
+                    
+                                  //  CustomSearchField(
+                                  //   labelColor: Colors.white,
+                                  //   label: "Request Doc No",
+                                  //   labelYn: true,
+                                  //   hintLabel: "Request Doc No",
+                                  //   controller: gasMeterReadingReceiptController
+                                  //       .txtDocNumController,
+                                  // ),
+                                  ),
+                              gapWC(10),
+                              Expanded(
+                                flex: 2,
+                                child: Row(
+                                  children: [
+                                    _tHead(
+                                      title: "Date : ",
+                                    ),
+                                    _tValue(
+                                        value: Helper.convertDateFormat2(
+                                            dateTime: DateTime.now().toString())),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
               Expanded(
@@ -243,28 +250,28 @@ class _GasMeterReadingReceiptPageState
                             ),
                             const Icon(Icons.info_outline),
                             Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: CircleAvatar(
-                                backgroundColor: ThemeColors.primaryBlueColor,
-                                child: Image.asset(
-                                  "assets/icons/sent.png",
-                                  color: ThemeColors.white,
-                                  height: 25,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: CircleAvatar(
-                                backgroundColor: ThemeColors.primaryBlueColor,
-                                child: Image.asset(
-                                  "assets/icons/Printer.png",
-                                  color: ThemeColors.white,
-                                  height: 30,
-                                ),
-                              ),
-                            )
+                            // Padding(
+                            //   padding: const EdgeInsets.only(right: 10),
+                            //   child: CircleAvatar(
+                            //     backgroundColor: ThemeColors.primaryBlueColor,
+                            //     child: Image.asset(
+                            //       "assets/icons/sent.png",
+                            //       color: ThemeColors.white,
+                            //       height: 25,
+                            //     ),
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(right: 10),
+                            //   child: CircleAvatar(
+                            //     backgroundColor: ThemeColors.primaryBlueColor,
+                            //     child: Image.asset(
+                            //       "assets/icons/Printer.png",
+                            //       color: ThemeColors.white,
+                            //       height: 30,
+                            //     ),
+                            //   ),
+                            // )
                           ],
                         ),
                       ),
@@ -316,7 +323,7 @@ class _GasMeterReadingReceiptPageState
                         controller: gasMeterReadingReceiptController
                             .txtContractNoController,
                       ),
-                      gapHC(10),
+                      gapHC(5),
                       Row(
                         children: [
                           Expanded(
@@ -426,7 +433,7 @@ class _GasMeterReadingReceiptPageState
                           ),
                         ],
                       ),
-                      gapHC(10),
+                      gapHC(5),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
                         child: PrimaryInputField(
@@ -440,7 +447,7 @@ class _GasMeterReadingReceiptPageState
                               .txtBuildingNameController,
                         ),
                       ),
-                      gapHC(10),
+                      gapHC(5),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
                         child: PrimaryInputField(
@@ -471,7 +478,7 @@ class _GasMeterReadingReceiptPageState
                       ),
                       Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
+                              horizontal: 10, ),
                           child: SizedBox(
                             child: PrimaryInputField(
                               enablests: false,
@@ -486,7 +493,7 @@ class _GasMeterReadingReceiptPageState
                           )),
                       Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
+                              horizontal: 10,  ),
                           child: SizedBox(
                             child: PrimaryInputField(
                               enablests: false,
@@ -614,7 +621,7 @@ class _GasMeterReadingReceiptPageState
                           ],
                         ),
                       ),
-                      gapHC(10),
+                      gapHC(5),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
                         child: PrimaryInputField(
@@ -628,7 +635,7 @@ class _GasMeterReadingReceiptPageState
                           textType: TextInputType.number,
                         ),
                       ),
-                      gapHC(10),
+                      gapHC(5),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
                         child: PrimaryInputField(

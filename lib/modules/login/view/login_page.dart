@@ -15,17 +15,28 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../support/global.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController userNameController = TextEditingController(
       text: Global.rememberPassword == true ? Global.loginUserName : "");
+
   final TextEditingController passwordController = TextEditingController(
       text: Global.rememberPassword == true ? Global.loginPassword : "");
+
   final LogInController logInController = Get.put(LogInController());
+
   final LoginRepository loginRepo = LoginRepository();
+
   final ValueNotifier<bool> rememberPassword =
       ValueNotifier(Global.rememberPassword);
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +85,7 @@ class LoginPage extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 10),
                                 const Text(
-                                  "BEAMS GAS UTILITY",
+                                  "BEAMS GAS",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: ThemeColors.white,
@@ -134,7 +145,8 @@ class LoginPage extends StatelessWidget {
 
                     // Remember Password
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 4),
                       child: Row(
                         children: [
                           ValueListenableBuilder<bool>(
@@ -163,23 +175,91 @@ class LoginPage extends StatelessWidget {
                     ),
 
                     // Login Button
+                    // Padding(
+                    //     padding: const EdgeInsets.only(top: 10),
+                    //     child: PrimaryButton(
+                    //         buttonWidth: 140,
+                    //         buttonLabel: 'Login',
+                    //         isLoading: isLoading,
+                    //         onPressed: () {
+                    //           if (rememberPassword.value) {
+                    //             SpHelper.toSpString(
+                    //                 "loginUserName", userNameController.text);
+                    //             SpHelper.toSpString(
+                    //                 "loginPassword", passwordController.text);
+                    //           }
+                    //           setState(() {
+
+                    //           isLoading = true;
+                    //           });
+
+                    //           LoginFunctions.fnLogin(
+                    //             username: userNameController.text,
+                    //             password: passwordController.text,
+                    //           );
+                    //           isLoading = false;
+                    //         })
+
+                    //     //  PrimaryButton(
+                    //     //   buttonLabel: "Login",
+                    //     //   buttonWidth: 140,
+                    //     //   onPressed: () {
+                    //     //     if (rememberPassword.value) {
+                    //     //       SpHelper.toSpString(
+                    //     //           "loginUserName", userNameController.text);
+                    //     //       SpHelper.toSpString(
+                    //     //           "loginPassword", passwordController.text);
+                    //     //     }
+
+                    //     //     LoginFunctions.fnLogin(
+                    //     //       username: userNameController.text,
+                    //     //       password: passwordController.text,
+                    //     //     );
+                    //     //   },
+                    //     // ),
+                    //     ),
+
+                    // Login Button
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: PrimaryButton(
-                        buttonLabel: "Login",
-                        buttonWidth: 140,
-                        onPressed: () {
+                        loadingText: "Authenticating",
+                        buttonWidth:isLoading?250: 140,
+                        buttonLabel: 'Login',
+                        isLoading: isLoading,
+                        onPressed: () async {
+                          // 1. Save credentials if remember password is checked
                           if (rememberPassword.value) {
-                            SpHelper.toSpString(
+                            await SpHelper.toSpString(
                                 "loginUserName", userNameController.text);
-                            SpHelper.toSpString(
+                            await SpHelper.toSpString(
                                 "loginPassword", passwordController.text);
                           }
 
-                          LoginFunctions.fnLogin(
-                            username: userNameController.text,
-                            password: passwordController.text,
-                          );
+                          // 2. Set loading to true
+                          setState(() {
+                            isLoading = true;
+                          });
+                          // await Future.delayed(const Duration(seconds: 2));
+
+                          try {
+                            await Future.delayed(const Duration(seconds: 1));
+                            // 3. Await your login function (make sure fnLogin returns a Future)
+                            await LoginFunctions.fnLogin(
+                              username: userNameController.text,
+                              password: passwordController.text,
+                            );
+                          } catch (e) {
+                            // Handle any unexpected errors if needed
+                            print("Login error: $e");
+                          } finally {
+                            // 4. Ensure loading is always set back to false, even if it fails
+                            if (mounted) {
+                              setState(() {
+                                isLoading = false;
+                              });
+                            }
+                          }
                         },
                       ),
                     ),
@@ -204,7 +284,8 @@ class LoginPage extends StatelessWidget {
 
                     // Company & Year Info
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 12),
                       child: Text.rich(
                         TextSpan(
                           text: 'You are logging in to\n ',

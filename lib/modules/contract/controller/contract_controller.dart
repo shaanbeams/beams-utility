@@ -265,151 +265,281 @@ void calculateAndSetTotalAmount() {
   totalAmountString.value = formattedTotal;
 }
 
+String _formatDecimal(dynamic value, {int decimalPlaces = 2}) {
+  if (value == null) return '';
+  final strValue = value.toString().trim();
+  if (strValue.isEmpty) return '';
+  
+  final number = double.tryParse(strValue);
+  if (number == null) return strValue; // Return original string if it's not a valid number
+  
+  return number.toStringAsFixed(decimalPlaces);
+}
+
+  // _fillData() {
+  //   logger.i(
+  //       "selectedContract.value?.reqDocNo: ${selectedContract.value?.contractDate}");
+  //   logger.i(
+  //       "selectedContract.value?.reqDocNo: ${selectedContract.value?.connectionDate}");
+  //   //====================connection req=========================
+
+  //   txtReqNoController.text = selectedContract.value?.reqDocNo == null
+  //       ? selectedContract.value?.contractNo ?? ""
+  //       : selectedContract.value?.reqDocNo ?? "";
+  //   txtcontractNoController.text = selectedContract.value?.reqDocNo == null
+  //       ? ""
+  //       : selectedContract.value?.contractNo ?? "";
+
+  //   txtReqDocTypeController.text = selectedContract.value?.doctype ?? "";
+  //   txtPriorityController.text = selectedContract.value?.contractPriority ?? "";
+  //   txtBuildingCodeController.text = selectedContract.value?.buildingCode ?? "";
+  //   txtAppartmentCodeController.text =
+  //       selectedContract.value?.apartmentCode ?? "";
+  //   txtBillingCustomerController.text =
+  //       selectedContract.value?.billingCustomer ?? "";
+  //   txtStockLocationController.text = selectedContract.value?.loc ?? "";
+  //   txtMeterPressureController.text =
+  //       selectedContract.value?.meterPressure ?? "";
+  //   txtBranchController.text = selectedContract.value?.brncode ?? "";
+  //   txtDivisionController.text = selectedContract.value?.divcode ?? "";
+  //   txtCostCenterController.text = selectedContract.value?.cccode ?? "";
+  //   txtSalesManController.text = selectedContract.value?.sman ?? "";
+  //   otherAmountReq.value =
+  //       selectedContract.value?.otherRequiredYn == "Y" ? true : false;
+
+  //   contractDate.value =
+  //       selectedContract.value?.contractDate ?? DateTime.now().toString();
+  //   connectionDate.value =
+  //       selectedContract.value?.connectionDate ?? DateTime.now().toString();
+
+  //   //===================other=====================================
+
+  //   txtCityController.text = selectedContract.value?.city ?? "";
+  //   txtCountryController.text = selectedContract.value?.country ?? "";
+  //   txtNameController.text = selectedContract.value?.partyname ?? "";
+  //   txtArabicNameController.text =
+  //       selectedContract.value?.arabicPartyname ?? "";
+  //   txtEmailController.text = selectedContract.value?.email ?? "";
+  //   txtAddressController.text = selectedContract.value?.address1 ?? "";
+  //   txtArabicAddressController.text =
+  //       selectedContract.value?.arabicAddress1 ?? "";
+  //   // txtWhatsappNoController.text = ;
+  //   txtMobileNoController.text = selectedContract.value?.mobile ?? "";
+  //   txtTel1Controller.text = selectedContract.value?.tel1 ?? "";
+  //   txtTel2Controller.text = selectedContract.value?.tel2 ?? "";
+  //   txtPOBoxnoController.text = selectedContract.value?.pobox ?? "";
+  //   txtTINNoController.text = selectedContract.value?.tinno ?? "";
+  //   //  txtCRDay .text = selectedContract.value?.cr??"";
+  //   txtACGP1Controller.text = selectedContract.value?.acgp1 ?? "";
+  //   txtACGP2Controller.text = selectedContract.value?.acgp2 ?? "";
+  //   txtACGP3Controller.text = selectedContract.value?.acgp3 ?? "";
+  //   txtACGP4Controller.text = selectedContract.value?.acgp4 ?? "";
+  //   txtACGP5Controller.text = selectedContract.value?.acgp5 ?? "";
+  //   txtACGP6Controller.text = selectedContract.value?.acgp6 ?? "";
+
+  //   //=====================main=================================
+  //   txtStatusController.text = selectedContract.value?.status ?? "";
+  //   txtGasMeterNoController.text = selectedContract.value?.gasMeterNo ?? "";
+  //   txtReadingConvController.text =
+  //       selectedContract.value?.readingConversion ?? "";
+  //   txtConsumptionConvController.text =
+  //       selectedContract.value?.consumptionConversion ?? "";
+  //   txtTotalAmountController.text = selectedContract.value?.amtfc ?? "";
+  //   totalAmountString.value = selectedContract.value?.amtfc ?? "00.00";
+  //   txtUnitPriceController.text = selectedContract.value?.unitPrice ?? "";
+  //   txtStartReadingController.text = selectedContract.value?.startReading ?? "";
+  //   txtLastReadingController.text = selectedContract.value?.lastReading ?? "";
+  //   txtRemarksController.text = selectedContract.value?.remarks ?? "";
+
+  //   //==================amount detaild===========================
+  //   txtInsuranceController.text = selectedContract.value?.insAmtfc ?? "";
+  //   txtInsuranceVATController.text =
+  //       selectedContract.value?.insuranceVatperc ?? "";
+  //   txtMonthlyController.text = selectedContract.value?.monthlyFee ?? "";
+  //   txtMonthlyVATController.text = selectedContract.value?.monthlyVatperc?? "";
+  //   txtBoilerGasController.text =
+  //       selectedContract.value?.boilerGasConsumptionAmtfc ?? "";
+  //   txtBoilerGasVATController.text =
+  //       selectedContract.value?.boilerGasConsumptionTaxPerc ?? "";
+  //   txtDepositController.text = selectedContract.value?.depositAmtfc ?? "";
+  //   txtDepositVATController.text = selectedContract.value?.depositVatperc ?? "";
+  //   txtConnectionController.text =
+  //       selectedContract.value?.connectionAmtfc ?? "";
+  //   txtConnectionVATController.text =
+  //       selectedContract.value?.connectionVatperc ?? "";
+  //   txtMaintananceController.text =
+  //       selectedContract.value?.maintenanceAmtfc ?? "";
+  //   txtMaintananceVATController.text =
+  //       selectedContract.value?.maintenanceVatperc ?? "";
+  //   txtDisconnectionController.text =
+  //       selectedContract.value?.disconnectionAmtfc ?? "";
+  //   txtDisconnectionVATController.text =
+  //       selectedContract.value?.disconnectionVatperc ?? "";
+  //   txtClearanceController.text = selectedContract.value?.clearanceAmtfc ?? "";
+  //   txtClearanceVATController.text =
+  //       selectedContract.value?.clearanceVatperc ?? "";
+  //   txtRegistrationController.text =
+  //       selectedContract.value?.registrationAmtfc ?? "";
+  //   txtRegistrationVATController.text =
+  //       selectedContract.value?.registrationVatperc ?? "";
+  //   txtAdministrationController.text =
+  //       selectedContract.value?.administrationAmtfc ?? "";
+  //   txtAdministrationVATController.text =
+  //       selectedContract.value?.administrationTaxPerc ?? "";
+  //   txtBillMeterReadingController.text =
+  //       selectedContract.value?.billMeterReadingAmtfc ?? "";
+  //   txtBillMeterReadingVATController.text =
+  //       selectedContract.value?.billMeterReadingTaxPerc ?? "";
+  //   txtFacilityController.text =
+  //       selectedContract.value?.facilityManageAmtfc ?? "";
+  //   txtFacilityVATController.text =
+  //       selectedContract.value?.facilityManageTaxPerc ?? "";
+  //   txtDelayController.text = selectedContract.value?.delayPaymentAmtfc ?? "";
+  //   txtDelayVATController.text =
+  //       selectedContract.value?.delayPaymentTaxPerc ?? "";
+  //   txtSecurityController.text =
+  //       selectedContract.value?.securityDepReturnAmtfc ?? "";
+  //   txtSecurityVATController.text =
+  //       selectedContract.value?.securityDepReturnTaxPerc ?? "";
+  //   txtDepositController.text = selectedContract.value?.depositAmtfc ?? "";
+  //   txtDepositVATController.text = selectedContract.value?.depositVatperc ?? "";
+  //   txtOther1Controller.text = selectedContract.value?.other1Amtfc ?? "";
+  //   txtOther2Controller.text = selectedContract.value?.other2Amtfc ?? "";
+  //   txtOther3Controller.text = selectedContract.value?.other3Amtfc ?? "";
+  //   txtOtherVAT1Controller.text = selectedContract.value?.otheramtVatperc ?? "";
+  //   txtOtherVAT2Controller.text =
+  //       selectedContract.value?.otheramt2Vatperc ?? "";
+  //   txtOtherVAT3Controller.text =
+  //       selectedContract.value?.otheramt3Vatperc ?? "";
+  //   txtCustomerIdController.text = selectedContract.value?.customerId ?? "";
+  //   lbytesImage1.value =
+  //       base64.decode(selectedContract.value?.imageEidFront ?? "");
+
+  //   lbytesImage2.value =
+  //       base64.decode(selectedContract.value?.imageEidBack ?? "");
+  //   lstrSignature.value =
+  //       base64.decode(selectedContract.value?.signature ?? "");
+  //       calculateAndSetTotalAmount();
+  // }
+
   _fillData() {
-    logger.i(
-        "selectedContract.value?.reqDocNo: ${selectedContract.value?.contractDate}");
-    logger.i(
-        "selectedContract.value?.reqDocNo: ${selectedContract.value?.connectionDate}");
-    //====================connection req=========================
+  logger.i("selectedContract.value?.reqDocNo: ${selectedContract.value?.contractDate}");
+  logger.i("selectedContract.value?.reqDocNo: ${selectedContract.value?.connectionDate}");
+  //====================connection req=========================
 
-    txtReqNoController.text = selectedContract.value?.reqDocNo == null
-        ? selectedContract.value?.contractNo ?? ""
-        : selectedContract.value?.reqDocNo ?? "";
-    txtcontractNoController.text = selectedContract.value?.reqDocNo == null
-        ? ""
-        : selectedContract.value?.contractNo ?? "";
+  txtReqNoController.text = selectedContract.value?.reqDocNo == null
+      ? selectedContract.value?.contractNo ?? ""
+      : selectedContract.value?.reqDocNo ?? "";
+  txtcontractNoController.text = selectedContract.value?.reqDocNo == null
+      ? ""
+      : selectedContract.value?.contractNo ?? "";
 
-    txtReqDocTypeController.text = selectedContract.value?.doctype ?? "";
-    txtPriorityController.text = selectedContract.value?.contractPriority ?? "";
-    txtBuildingCodeController.text = selectedContract.value?.buildingCode ?? "";
-    txtAppartmentCodeController.text =
-        selectedContract.value?.apartmentCode ?? "";
-    txtBillingCustomerController.text =
-        selectedContract.value?.billingCustomer ?? "";
-    txtStockLocationController.text = selectedContract.value?.loc ?? "";
-    txtMeterPressureController.text =
-        selectedContract.value?.meterPressure ?? "";
-    txtBranchController.text = selectedContract.value?.brncode ?? "";
-    txtDivisionController.text = selectedContract.value?.divcode ?? "";
-    txtCostCenterController.text = selectedContract.value?.cccode ?? "";
-    txtSalesManController.text = selectedContract.value?.sman ?? "";
-    otherAmountReq.value =
-        selectedContract.value?.otherRequiredYn == "Y" ? true : false;
+  txtReqDocTypeController.text = selectedContract.value?.doctype ?? "";
+  txtPriorityController.text = selectedContract.value?.contractPriority ?? "";
+  txtBuildingCodeController.text = selectedContract.value?.buildingCode ?? "";
+  txtAppartmentCodeController.text =
+      selectedContract.value?.apartmentCode ?? "";
+  txtBillingCustomerController.text =
+      selectedContract.value?.billingCustomer ?? "";
+  txtStockLocationController.text = selectedContract.value?.loc ?? "";
+  txtMeterPressureController.text =
+      selectedContract.value?.meterPressure ?? "";
+  txtBranchController.text = selectedContract.value?.brncode ?? "";
+  txtDivisionController.text = selectedContract.value?.divcode ?? "";
+  txtCostCenterController.text = selectedContract.value?.cccode ?? "";
+  txtSalesManController.text = selectedContract.value?.sman ?? "";
+  otherAmountReq.value =
+      selectedContract.value?.otherRequiredYn == "Y" ? true : false;
 
-    contractDate.value =
-        selectedContract.value?.contractDate ?? DateTime.now().toString();
-    connectionDate.value =
-        selectedContract.value?.connectionDate ?? DateTime.now().toString();
+  contractDate.value =
+      selectedContract.value?.contractDate ?? DateTime.now().toString();
+  connectionDate.value =
+      selectedContract.value?.connectionDate ?? DateTime.now().toString();
 
-    //===================other=====================================
+  //===================other=====================================
 
-    txtCityController.text = selectedContract.value?.city ?? "";
-    txtCountryController.text = selectedContract.value?.country ?? "";
-    txtNameController.text = selectedContract.value?.partyname ?? "";
-    txtArabicNameController.text =
-        selectedContract.value?.arabicPartyname ?? "";
-    txtEmailController.text = selectedContract.value?.email ?? "";
-    txtAddressController.text = selectedContract.value?.address1 ?? "";
-    txtArabicAddressController.text =
-        selectedContract.value?.arabicAddress1 ?? "";
-    // txtWhatsappNoController.text = ;
-    txtMobileNoController.text = selectedContract.value?.mobile ?? "";
-    txtTel1Controller.text = selectedContract.value?.tel1 ?? "";
-    txtTel2Controller.text = selectedContract.value?.tel2 ?? "";
-    txtPOBoxnoController.text = selectedContract.value?.pobox ?? "";
-    txtTINNoController.text = selectedContract.value?.tinno ?? "";
-    //  txtCRDay .text = selectedContract.value?.cr??"";
-    txtACGP1Controller.text = selectedContract.value?.acgp1 ?? "";
-    txtACGP2Controller.text = selectedContract.value?.acgp2 ?? "";
-    txtACGP3Controller.text = selectedContract.value?.acgp3 ?? "";
-    txtACGP4Controller.text = selectedContract.value?.acgp4 ?? "";
-    txtACGP5Controller.text = selectedContract.value?.acgp5 ?? "";
-    txtACGP6Controller.text = selectedContract.value?.acgp6 ?? "";
+  txtCityController.text = selectedContract.value?.city ?? "";
+  txtCountryController.text = selectedContract.value?.country ?? "";
+  txtNameController.text = selectedContract.value?.partyname ?? "";
+  txtArabicNameController.text =
+      selectedContract.value?.arabicPartyname ?? "";
+  txtEmailController.text = selectedContract.value?.email ?? "";
+  txtAddressController.text = selectedContract.value?.address1 ?? "";
+  txtArabicAddressController.text =
+      selectedContract.value?.arabicAddress1 ?? "";
+  txtMobileNoController.text = selectedContract.value?.mobile ?? "";
+  txtTel1Controller.text = selectedContract.value?.tel1 ?? "";
+  txtTel2Controller.text = selectedContract.value?.tel2 ?? "";
+  txtPOBoxnoController.text = selectedContract.value?.pobox ?? "";
+  txtTINNoController.text = selectedContract.value?.tinno ?? "";
+  txtACGP1Controller.text = selectedContract.value?.acgp1 ?? "";
+  txtACGP2Controller.text = selectedContract.value?.acgp2 ?? "";
+  txtACGP3Controller.text = selectedContract.value?.acgp3 ?? "";
+  txtACGP4Controller.text = selectedContract.value?.acgp4 ?? "";
+  txtACGP5Controller.text = selectedContract.value?.acgp5 ?? "";
+  txtACGP6Controller.text = selectedContract.value?.acgp6 ?? "";
 
-    //=====================main=================================
-    txtStatusController.text = selectedContract.value?.status ?? "";
-    txtGasMeterNoController.text = selectedContract.value?.gasMeterNo ?? "";
-    txtReadingConvController.text =
-        selectedContract.value?.readingConversion ?? "";
-    txtConsumptionConvController.text =
-        selectedContract.value?.consumptionConversion ?? "";
-    txtTotalAmountController.text = selectedContract.value?.amtfc ?? "";
-    totalAmountString.value = selectedContract.value?.amtfc ?? "00.00";
-    txtUnitPriceController.text = selectedContract.value?.unitPrice ?? "";
-    txtStartReadingController.text = selectedContract.value?.startReading ?? "";
-    txtLastReadingController.text = selectedContract.value?.lastReading ?? "";
-    txtRemarksController.text = selectedContract.value?.remarks ?? "";
+  //=====================main=================================
+  txtStatusController.text = selectedContract.value?.status ?? "";
+  txtGasMeterNoController.text = selectedContract.value?.gasMeterNo ?? "";
+  txtReadingConvController.text = _formatDecimal(selectedContract.value?.readingConversion);
+  txtConsumptionConvController.text = _formatDecimal(selectedContract.value?.consumptionConversion);
+  
+  // Format amounts to 2 decimals
+  txtTotalAmountController.text = _formatDecimal(selectedContract.value?.amtfc);
+  totalAmountString.value = _formatDecimal(selectedContract.value?.amtfc);
+  if (totalAmountString.value.isEmpty) totalAmountString.value = "00.00";
 
-    //==================amount detaild===========================
-    txtInsuranceController.text = selectedContract.value?.insAmtfc ?? "";
-    txtInsuranceVATController.text =
-        selectedContract.value?.insuranceVatperc ?? "";
-    txtMonthlyController.text = selectedContract.value?.monthlyFee ?? "";
-    txtMonthlyVATController.text = selectedContract.value?.monthlyVatperc ?? "";
-    txtBoilerGasController.text =
-        selectedContract.value?.boilerGasConsumptionAmtfc ?? "";
-    txtBoilerGasVATController.text =
-        selectedContract.value?.boilerGasConsumptionTaxPerc ?? "";
-    txtDepositController.text = selectedContract.value?.depositAmtfc ?? "";
-    txtDepositVATController.text = selectedContract.value?.depositVatperc ?? "";
-    txtConnectionController.text =
-        selectedContract.value?.connectionAmtfc ?? "";
-    txtConnectionVATController.text =
-        selectedContract.value?.connectionVatperc ?? "";
-    txtMaintananceController.text =
-        selectedContract.value?.maintenanceAmtfc ?? "";
-    txtMaintananceVATController.text =
-        selectedContract.value?.maintenanceVatperc ?? "";
-    txtDisconnectionController.text =
-        selectedContract.value?.disconnectionAmtfc ?? "";
-    txtDisconnectionVATController.text =
-        selectedContract.value?.disconnectionVatperc ?? "";
-    txtClearanceController.text = selectedContract.value?.clearanceAmtfc ?? "";
-    txtClearanceVATController.text =
-        selectedContract.value?.clearanceVatperc ?? "";
-    txtRegistrationController.text =
-        selectedContract.value?.registrationAmtfc ?? "";
-    txtRegistrationVATController.text =
-        selectedContract.value?.registrationVatperc ?? "";
-    txtAdministrationController.text =
-        selectedContract.value?.administrationAmtfc ?? "";
-    txtAdministrationVATController.text =
-        selectedContract.value?.administrationTaxPerc ?? "";
-    txtBillMeterReadingController.text =
-        selectedContract.value?.billMeterReadingAmtfc ?? "";
-    txtBillMeterReadingVATController.text =
-        selectedContract.value?.billMeterReadingTaxPerc ?? "";
-    txtFacilityController.text =
-        selectedContract.value?.facilityManageAmtfc ?? "";
-    txtFacilityVATController.text =
-        selectedContract.value?.facilityManageTaxPerc ?? "";
-    txtDelayController.text = selectedContract.value?.delayPaymentAmtfc ?? "";
-    txtDelayVATController.text =
-        selectedContract.value?.delayPaymentTaxPerc ?? "";
-    txtSecurityController.text =
-        selectedContract.value?.securityDepReturnAmtfc ?? "";
-    txtSecurityVATController.text =
-        selectedContract.value?.securityDepReturnTaxPerc ?? "";
-    txtDepositController.text = selectedContract.value?.depositAmtfc ?? "";
-    txtDepositVATController.text = selectedContract.value?.depositVatperc ?? "";
-    txtOther1Controller.text = selectedContract.value?.other1Amtfc ?? "";
-    txtOther2Controller.text = selectedContract.value?.other2Amtfc ?? "";
-    txtOther3Controller.text = selectedContract.value?.other3Amtfc ?? "";
-    txtOtherVAT1Controller.text = selectedContract.value?.otheramtVatperc ?? "";
-    txtOtherVAT2Controller.text =
-        selectedContract.value?.otheramt2Vatperc ?? "";
-    txtOtherVAT3Controller.text =
-        selectedContract.value?.otheramt3Vatperc ?? "";
-    txtCustomerIdController.text = selectedContract.value?.customerId ?? "";
-    lbytesImage1.value =
-        base64.decode(selectedContract.value?.imageEidFront ?? "");
+  txtUnitPriceController.text = _formatDecimal(selectedContract.value?.unitPrice);
+  txtStartReadingController.text = _formatDecimal(selectedContract.value?.startReading);
+  txtLastReadingController.text = _formatDecimal(selectedContract.value?.lastReading);
+  txtRemarksController.text = selectedContract.value?.remarks ?? "";
 
-    lbytesImage2.value =
-        base64.decode(selectedContract.value?.imageEidBack ?? "");
-    lstrSignature.value =
-        base64.decode(selectedContract.value?.signature ?? "");
-        calculateAndSetTotalAmount();
-  }
+  //==================amount detailed===========================
+  txtInsuranceController.text = _formatDecimal(selectedContract.value?.insAmtfc);
+  txtInsuranceVATController.text = _formatDecimal(selectedContract.value?.insuranceVatperc);
+  txtMonthlyController.text = _formatDecimal(selectedContract.value?.monthlyFee);
+  txtMonthlyVATController.text = _formatDecimal(selectedContract.value?.monthlyVatperc);
+  txtBoilerGasController.text = _formatDecimal(selectedContract.value?.boilerGasConsumptionAmtfc);
+  txtBoilerGasVATController.text = _formatDecimal(selectedContract.value?.boilerGasConsumptionTaxPerc);
+  txtDepositController.text = _formatDecimal(selectedContract.value?.depositAmtfc);
+  txtDepositVATController.text = _formatDecimal(selectedContract.value?.depositVatperc);
+  txtConnectionController.text = _formatDecimal(selectedContract.value?.connectionAmtfc);
+  txtConnectionVATController.text = _formatDecimal(selectedContract.value?.connectionVatperc);
+  txtMaintananceController.text = _formatDecimal(selectedContract.value?.maintenanceAmtfc);
+  txtMaintananceVATController.text = _formatDecimal(selectedContract.value?.maintenanceVatperc);
+  txtDisconnectionController.text = _formatDecimal(selectedContract.value?.disconnectionAmtfc);
+  txtDisconnectionVATController.text = _formatDecimal(selectedContract.value?.disconnectionVatperc);
+  txtClearanceController.text = _formatDecimal(selectedContract.value?.clearanceAmtfc);
+  txtClearanceVATController.text = _formatDecimal(selectedContract.value?.clearanceVatperc);
+  txtRegistrationController.text = _formatDecimal(selectedContract.value?.registrationAmtfc);
+  txtRegistrationVATController.text = _formatDecimal(selectedContract.value?.registrationVatperc);
+  txtAdministrationController.text = _formatDecimal(selectedContract.value?.administrationAmtfc);
+  txtAdministrationVATController.text = _formatDecimal(selectedContract.value?.administrationTaxPerc);
+  txtBillMeterReadingController.text = _formatDecimal(selectedContract.value?.billMeterReadingAmtfc);
+  txtBillMeterReadingVATController.text = _formatDecimal(selectedContract.value?.billMeterReadingTaxPerc);
+  txtFacilityController.text = _formatDecimal(selectedContract.value?.facilityManageAmtfc);
+  txtFacilityVATController.text = _formatDecimal(selectedContract.value?.facilityManageTaxPerc);
+  txtDelayController.text = _formatDecimal(selectedContract.value?.delayPaymentAmtfc);
+  txtDelayVATController.text = _formatDecimal(selectedContract.value?.delayPaymentTaxPerc);
+  txtSecurityController.text = _formatDecimal(selectedContract.value?.securityDepReturnAmtfc);
+  txtSecurityVATController.text = _formatDecimal(selectedContract.value?.securityDepReturnTaxPerc);
+  
+  txtOther1Controller.text = _formatDecimal(selectedContract.value?.other1Amtfc);
+  txtOther2Controller.text = _formatDecimal(selectedContract.value?.other2Amtfc);
+  txtOther3Controller.text = _formatDecimal(selectedContract.value?.other3Amtfc);
+  txtOtherVAT1Controller.text = _formatDecimal(selectedContract.value?.otheramtVatperc);
+  txtOtherVAT2Controller.text = _formatDecimal(selectedContract.value?.otheramt2Vatperc);
+  txtOtherVAT3Controller.text = _formatDecimal(selectedContract.value?.otheramt3Vatperc);
+  
+  txtCustomerIdController.text = selectedContract.value?.customerId ?? "";
+  
+  lbytesImage1.value = base64.decode(selectedContract.value?.imageEidFront ?? "");
+  lbytesImage2.value = base64.decode(selectedContract.value?.imageEidBack ?? "");
+  lstrSignature.value = base64.decode(selectedContract.value?.signature ?? "");
+  
+  calculateAndSetTotalAmount();
+}
 
   fnclear() {
     // AssignUserController assignUserController = Get.put(AssignUserController());

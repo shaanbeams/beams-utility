@@ -941,36 +941,50 @@ class _ContractDisconnectionPageState extends State<ContractDisconnectionPage>
                             })),
                         const Divider(),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 0, 30, 10),
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: Row(
                             children: [
                               _tHead(
                                   title: "Total Net payable Amount",
                                   color: ThemeColors.primaryBlueColor),
                               const Spacer(),
-                              Obx(() => Text(contractDisconnectionController
+                              Obx(() => 
+                              Helper.dirhamFormatter(value: contractDisconnectionController
                                   .totalNetAmount.value
-                                  .toStringAsFixed(3))),
+                                  .toStringAsFixed(3))
+                              
+                              // Text(contractDisconnectionController
+                              //     .totalNetAmount.value
+                              //     .toStringAsFixed(3))
+                                  
+                                  ),
                             ],
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 0, 30, 10),
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: Row(
                             children: [
                               _tHead(
                                   title: "Total Net payable Tax Amount",
                                   color: ThemeColors.primaryBlueColor),
                               const Spacer(),
-                              Obx(() => Text(contractDisconnectionController
+                              Obx(() => 
+                              Helper.dirhamFormatter(value: contractDisconnectionController
                                   .totalNetTax.value
-                                  .toStringAsFixed(3))),
+                                  .toStringAsFixed(3))
+                              // Text(contractDisconnectionController
+                              //     .totalNetTax.value
+                              //     .toStringAsFixed(3))
+                                  
+                                  
+                                  ),
                             ],
                           ),
                         ),
                         const Divider(),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 0, 30, 10),
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: Row(
                             children: [
                               _tHead(
@@ -978,12 +992,17 @@ class _ContractDisconnectionPageState extends State<ContractDisconnectionPage>
                                   color: ThemeColors.primaryBlueColor),
                               const Spacer(),
                               Obx(
-                                () => Text(
-                                  contractDisconnectionController
+                                () => 
+                                
+                                Helper.dirhamFormatter(value: contractDisconnectionController
                                       .totalNetPayable.value
-                                      .toStringAsFixed(3),
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
+                                      .toStringAsFixed(3))
+                                // Text(
+                                //   contractDisconnectionController
+                                //       .totalNetPayable.value
+                                //       .toStringAsFixed(3),
+                                //   style: TextStyle(fontWeight: FontWeight.bold),
+                                // ),
                               ),
                             ],
                           ),
@@ -1037,8 +1056,8 @@ class _ContractDisconnectionPageState extends State<ContractDisconnectionPage>
                         //     ),
                         //   ],
                         // ),
-                        const Divider(),
-                        gapHC(70)
+                        // const Divider(),
+                        gapHC(30)
                       ],
                     ),
                   )

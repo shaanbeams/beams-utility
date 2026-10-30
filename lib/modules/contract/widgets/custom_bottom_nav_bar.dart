@@ -5,7 +5,9 @@ import 'package:flutter_bounce/flutter_bounce.dart';
 import 'package:gas_utility_app/support/common_widgets/gap.dart';
 import 'package:gas_utility_app/support/common_widgets/primary_button.dart';
 import 'package:gas_utility_app/support/custom_theme.dart';
+import 'package:gas_utility_app/support/helper.dart';
 import 'package:google_fonts/google_fonts.dart';
+ 
 
 class CustomBottomNavBar extends StatelessWidget {
   CustomBottomNavBar({
@@ -44,7 +46,9 @@ class CustomBottomNavBar extends StatelessWidget {
           ? isEditIconEnabled == true
               ? 110
               : 85
-          :isEditIconEnabled == true ? 80 : 50,
+          : isEditIconEnabled == true
+              ? 80
+              : 50,
       decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -74,13 +78,29 @@ class CustomBottomNavBar extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: Text(
-                            double.parse(netAmount ?? "0.00")
-                                .toStringAsFixed(3),
-                            style: GoogleFonts.poppins(
-                              color: ThemeColors.white,
-                              fontSize: 20,
-                            )),
+                        child:Helper.dirhamFormatter(value: netAmount ?? "0.00", colour: Colors.white,fontSize:20 ) 
+                        
+                        // CustomDirhamSymbolTextView(
+                        //   amount: double.parse(netAmount ?? "0.00"),
+                        //   symbolColor: Colors.white,
+                        //   symbolFontSize: 20,
+                        //   includeDecimal: true,
+                        //   spacing: 1,
+                        //   isFormatted: true,
+                        //   amountStyle: const TextStyle(
+                        //     fontSize: 20,
+                        //     color: Colors.white,
+                        //     fontWeight: FontWeight.bold,
+                        //     fontFamily: 'Roboto',
+                        //   ),
+                        // ),
+                        //  Text(
+                        //     double.parse(netAmount ?? "0.00")
+                        //         .toStringAsFixed(3),
+                        //     style: GoogleFonts.poppins(
+                        //       color: ThemeColors.white,
+                        //       fontSize: 20,
+                        //     )),
                       )
                     ],
                   ),

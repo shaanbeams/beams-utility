@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
                                   height: 50,
                                 ),
                     Text(
-                      "BEAMS GAS Utility ",
+                      "BEAMS GAS",
                       style: TextStyle(
                           // fontFamily: 'Sofachrome',
                           color: Colors.white,

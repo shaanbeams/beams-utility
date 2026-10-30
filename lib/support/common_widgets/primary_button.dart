@@ -11,57 +11,79 @@ class PrimaryButton extends StatelessWidget {
     required this.onPressed,
     this.buttonColor,
     this.buttonTextColor,
-    this.isOutlined =false,
-    this.isGradient =false
+    this.isOutlined = false,
+    this.isGradient = false,
+    this.isLoading = false, // Added loading parameter
+    this.loadingText = "Loading", // Added loading parameter
   });
 
   final String buttonLabel;
   final double? buttonWidth;
-  final Function() onPressed;
+  final VoidCallback onPressed; // VoidCallback is cleaner than Function()
   final Color? buttonColor;
   final Color? buttonTextColor;
   final bool? isOutlined;
   final bool? isGradient;
-
+  final bool isLoading;
+  final String? loadingText;
 
   @override
   Widget build(BuildContext context) {
+    final textColor = buttonTextColor ?? Colors.white;
+
     return Bounce(
-      duration: const Duration(
-        milliseconds: 100,
-      ),
-      onPressed: onPressed,
-      child:isOutlined==true?Container(
+      duration: const Duration(milliseconds: 100),
+      // Disable click action while loading
+      onPressed: isLoading ? () {} : onPressed,
+      child: Container(
         width: buttonWidth,
         height: 50,
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         decoration: BoxDecoration(
-            color:Colors.transparent,
-            border: Border.all(
-              color:buttonTextColor?? Colors.white
-            ),
-            borderRadius: BorderRadius.circular(50)),
-        child: Center(
-          child: Text(
-            buttonLabel,
-            style: GoogleFonts.poppins(
-                color:buttonTextColor?? Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
-          ),
+          color: isOutlined == true
+              ? Colors.transparent
+              : (buttonColor ?? ThemeColors.primaryBlueColor),
+          gradient: (isOutlined == true || isGradient != true)
+              ? null
+              : ThemeGradient.gradient,
+          border: isOutlined == true
+              ? Border.all(color: textColor)
+              : null,
+          borderRadius: BorderRadius.circular(50),
         ),
-      ): Container(
-        width: buttonWidth,
-        height: 50,
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        decoration: BoxDecoration(
-          gradient: isGradient==true?ThemeGradient.gradient:null,
-            color:buttonColor?? ThemeColors.primaryBlueColor,
-            borderRadius: BorderRadius.circular(50)),
         child: Center(
-          child: Text(
-            buttonLabel,
-            style: GoogleFonts.poppins(
-                color:buttonTextColor?? Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
-          ),
+          child: isLoading
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(textColor),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Text(
+                      '$loadingText...',
+                      style: GoogleFonts.poppins(
+                        color: textColor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                )
+              : Text(
+                  buttonLabel,
+                  style: GoogleFonts.poppins(
+                    color: textColor,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
         ),
       ),
     );

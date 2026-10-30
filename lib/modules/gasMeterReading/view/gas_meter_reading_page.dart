@@ -152,7 +152,6 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
         children: [
           Container(
             width: double.infinity,
-            
             decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -169,8 +168,7 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
             child: SafeArea(
               bottom: false,
               child: Padding(
-
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
                 child: Column(
                   children: [
                     Padding(
@@ -179,15 +177,16 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                         children: [
                           Bounce(
                             onPressed: () {
-                              gasMeterReadingController.isEditModeEnabled.value =
-                                  false;
-                              gasMeterReadingController.fnGetLastGasMeterReading(
-                                  mode: "LAST", docNo: "");
+                              gasMeterReadingController
+                                  .isEditModeEnabled.value = false;
+                              gasMeterReadingController
+                                  .fnGetLastGasMeterReading(
+                                      mode: "LAST", docNo: "");
                               Get.back();
                             },
                             duration: const Duration(milliseconds: 100),
                             child: const Padding(
-                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                                 child: Icon(
                                   Icons.arrow_back_ios_new_rounded,
                                   color: ThemeColors.white,
@@ -212,7 +211,7 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -223,8 +222,8 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                 label: "Request Doc No",
                                 labelYn: true,
                                 hintLabel: "Request Doc No",
-                                controller:
-                                    gasMeterReadingController.txtDocNumController,
+                                controller: gasMeterReadingController
+                                    .txtDocNumController,
                                 onSearchTap: () {
                                   List searchColumn = [
                                     {
@@ -240,11 +239,13 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                   ];
                                   Get.dialog(lookUpDialogue(
                                     callBackFn: (value) {
-                                      gasMeterReadingController.txtDocNumController
+                                      gasMeterReadingController
+                                          .txtDocNumController
                                           .text = value["DOCNO"];
                                       gasMeterReadingController
                                           .fnGetLastGasMeterReading(
-                                              mode: "VIEW", docNo: value["DOCNO"]);
+                                              mode: "VIEW",
+                                              docNo: value["DOCNO"]);
                                       Get.back();
                                     },
                                     tableName: "GREADING",
@@ -265,7 +266,8 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                         .isEditModeEnabled.value
                                     ? _tValue(
                                         value: Helper.convertDateFormat2(
-                                            dateTime: DateTime.now().toString()))
+                                            dateTime:
+                                                DateTime.now().toString()))
                                     : _tValue(
                                         value: Helper.convertDateFormat1(
                                             dateTime: gasMeterReadingController
@@ -273,7 +275,7 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                                 "01/01/2000 12:00:00 AM")))
                                 // _tValue(
                                 //     value:
-                
+
                                 //      Helper.convertDateFormat2(
                                 //         dateTime: DateTime.now().toString())),
                               ],
@@ -1099,47 +1101,68 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 30, 10),
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Row(
                                 children: [
                                   _tHead(
                                       title: "Total Amount",
                                       color: ThemeColors.primaryBlueColor),
                                   const Spacer(),
-                                  Obx(() => Text(gasMeterReadingController
-                                      .totalCurrAmount.value
-                                      .toStringAsFixed(3))),
+                                  Obx(() => Helper.dirhamFormatter(
+                                          value: gasMeterReadingController
+                                              .totalCurrAmount.value
+                                              .toStringAsFixed(3),
+                                          colour: Colors.black)
+
+                                      // Text(gasMeterReadingController
+                                      //     .totalCurrAmount.value
+                                      //     .toStringAsFixed(3))
+                                      ),
                                 ],
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 30, 10),
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Row(
                                 children: [
                                   _tHead(
                                       title: "Total Tax Amount",
                                       color: ThemeColors.primaryBlueColor),
                                   const Spacer(),
-                                  Obx(() => Text(gasMeterReadingController
-                                      .totalCurrTaxAmount.value
-                                      .toStringAsFixed(3))),
+                                  Obx(() => Helper.dirhamFormatter(
+                                          value: gasMeterReadingController
+                                              .totalCurrTaxAmount.value
+                                              .toStringAsFixed(3))
+
+                                      //  Text(gasMeterReadingController
+                                      //     .totalCurrTaxAmount.value
+                                      //     .toStringAsFixed(3))
+                                      ),
                                 ],
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 30, 10),
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Row(
                                 children: [
                                   _tHead(
                                       title: "Net Amount (Inc Tax)",
                                       color: ThemeColors.primaryBlueColor),
                                   const Spacer(),
-                                  Obx(() => Text(
-                                        gasMeterReadingController
+                                  Obx(() =>
+                                  
+                                  Helper.dirhamFormatter(value: gasMeterReadingController
                                             .netAmount.value
-                                            .toStringAsFixed(3),
-                                        style: TextStyle(fontSize: 15),
-                                      )),
+                                            .toStringAsFixed(3) ),
+                                  //  Text(
+                                  //       gasMeterReadingController
+                                  //           .netAmount.value
+                                  //           .toStringAsFixed(3),
+                                  //       style: TextStyle(fontSize: 15),
+                                  //     )
+                                      
+                                      
+                                      ),
                                 ],
                               ),
                             ),

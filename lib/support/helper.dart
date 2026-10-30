@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uae_dirham_symbol/uae_dirham_symbol.dart';
 
 class Helper {
 //
@@ -16,7 +17,8 @@ class Helper {
 //
   static Future<Uint8List?> fnImageToBase64() async {
     final ImagePicker picker = ImagePicker();
-    final image = await picker.pickImage(source: ImageSource.camera, imageQuality: 20);
+    final image =
+        await picker.pickImage(source: ImageSource.camera, imageQuality: 20);
     final bytes = image != null ? File(image.path).readAsBytesSync() : null;
     return bytes;
   }
@@ -32,7 +34,8 @@ class Helper {
 
   static bool _isTablet(context) {
     final size = MediaQuery.of(context).size;
-    final diagonal = sqrt((size.width * size.width) + (size.height * size.height));
+    final diagonal =
+        sqrt((size.width * size.width) + (size.height * size.height));
     return diagonal > 1100.0; // Adjust this value as needed for your use case
   }
 
@@ -54,7 +57,7 @@ class Helper {
         'yyyy-MM-dd HH:mm:ss',
         'dd-MM-yyyy',
       ];
-      
+
       for (String fmt in formats) {
         try {
           return DateFormat(fmt).parse(dateTime);
@@ -62,7 +65,7 @@ class Helper {
           continue;
         }
       }
-      
+
       return DateTime.now(); // Ultimate fallback if all patterns fail
     }
   }
@@ -76,7 +79,8 @@ class Helper {
 
   static convertDateFormat1({required String dateTime}) {
     try {
-      String formattedDate = DateFormat("dd-MM-yyyy").format(DateFormat("dd/MM/yyyy hh:mm:ss a").parse(dateTime));
+      String formattedDate = DateFormat("dd-MM-yyyy")
+          .format(DateFormat("dd/MM/yyyy hh:mm:ss a").parse(dateTime));
       return formattedDate;
     } catch (e) {
       return dateTime;
@@ -84,8 +88,8 @@ class Helper {
   }
 
   static convertDateFormat5({required String dateTime}) {
-    String formattedDate = DateFormat("dd-MM-yyyy")
-        .format(_parseDateTime(dateTime));
+    String formattedDate =
+        DateFormat("dd-MM-yyyy").format(_parseDateTime(dateTime));
     return formattedDate;
   }
 
@@ -95,11 +99,29 @@ class Helper {
   //
 
   static convertDateFormat2({required String dateTime}) {
-
     print("dateTime: $dateTime");
 
-    String formattedDate = DateFormat("dd-MM-yyyy").format(_parseDateTime(dateTime));
+    String formattedDate =
+        DateFormat("dd-MM-yyyy").format(_parseDateTime(dateTime));
     return formattedDate;
+  }
+
+static  Widget dirhamFormatter(
+      {required String value,   Color? colour, double? fontSize}) {
+    return CustomDirhamSymbolTextView(
+      amount: double.parse(value),
+      symbolColor: colour??Colors.black,
+      symbolFontSize: fontSize ?? 14,
+      includeDecimal: true,
+      spacing: 1,
+      isFormatted: true,
+      amountStyle: TextStyle(
+        fontSize: fontSize??14,
+        color: colour??Colors.black,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'Roboto',
+      ),
+    );
   }
 
   // Example:
@@ -109,7 +131,8 @@ class Helper {
 
   static String convertDateFormat3({required String dateTime}) {
     DateTime parsedDate = DateFormat("dd-MM-yyyy").parse(dateTime);
-    String formattedDate = DateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(parsedDate);
+    String formattedDate =
+        DateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(parsedDate);
     return formattedDate;
   }
 
@@ -122,39 +145,37 @@ class Helper {
     // DateTime parsedDate = DateFormat("dd/MM/yyyy hh:mm:ss a").parse(dateTime);
     // String formattedDate = DateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(parsedDate);
     // return formattedDate;
-    
-/// Converts supported date formats to yyyy-MM-dd HH:mm:ss.SSS.
-///
-/// Supports ISO dates and custom dates with AM/PM.
-  String convertDateFormat4({required String dateTime}) {
-  if (dateTime.trim().isEmpty) {
-    return '';
-  }
 
-  try {
-    // Handles ISO formats:
-    // 2026-10-26T11:45:42.779112
-    // 2026-10-26 11:45:42.779112
-    DateTime parsedDate;
+    /// Converts supported date formats to yyyy-MM-dd HH:mm:ss.SSS.
+    ///
+    /// Supports ISO dates and custom dates with AM/PM.
+    String convertDateFormat4({required String dateTime}) {
+      if (dateTime.trim().isEmpty) {
+        return '';
+      }
 
-    try {
-      parsedDate = DateTime.parse(dateTime.trim());
-    } catch (_) {
-      // Handles formats such as:
-      // 26/10/2026 11:45:42 AM
-      parsedDate = DateFormat(
-        'dd/MM/yyyy hh:mm:ss a',
-      ).parse(dateTime.trim());
+      try {
+        // Handles ISO formats:
+        // 2026-10-26T11:45:42.779112
+        // 2026-10-26 11:45:42.779112
+        DateTime parsedDate;
+
+        try {
+          parsedDate = DateTime.parse(dateTime.trim());
+        } catch (_) {
+          // Handles formats such as:
+          // 26/10/2026 11:45:42 AM
+          parsedDate = DateFormat(
+            'dd/MM/yyyy hh:mm:ss a',
+          ).parse(dateTime.trim());
+        }
+
+        return DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(parsedDate);
+      } catch (e) {
+        logger.e('convertDateFormat4 failed for "$dateTime": $e');
+        rethrow;
+      }
     }
-
-    return DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
-        .format(parsedDate);
-  } catch (e) {
-    logger.e('convertDateFormat4 failed for "$dateTime": $e');
-    rethrow;
-  }
-}
-
   }
 
   //
@@ -171,14 +192,16 @@ class Helper {
 
   // Function to Get Days
   static dateDifferance({required String previousDateString}) {
-    DateTime previousDate = DateFormat('dd/MM/yyyy hh:mm:ss a').parse(previousDateString);
+    DateTime previousDate =
+        DateFormat('dd/MM/yyyy hh:mm:ss a').parse(previousDateString);
     DateTime currentDate = DateTime.now();
     int differenceInDays = currentDate.difference(previousDate).inDays;
     return differenceInDays + 1;
   }
 
   static dateDifferanceNew({required String previousDateString}) {
-    DateTime previousDate = DateFormat('dd/MM/yyyy hh:mm:ss a').parse(previousDateString);
+    DateTime previousDate =
+        DateFormat('dd/MM/yyyy hh:mm:ss a').parse(previousDateString);
     DateTime currentDate = DateTime.now();
     int differenceInDays = currentDate.difference(previousDate).inDays;
     return differenceInDays + 1;
@@ -217,14 +240,10 @@ class Helper {
 class QuoteToBacktickFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
-    String newText = newValue.text.replaceAll("'", "`");
-    return TextEditingValue(
-      text: newText,
-      selection: TextSelection.collapsed(offset: newText.length),
-    );
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final text = newValue.text.replaceAll("'", '`').replaceAll('"', '`');
+    if (text == newValue.text) return newValue;
+    return newValue.copyWith(text: text); // copyWith keeps the selection
   }
 }
 

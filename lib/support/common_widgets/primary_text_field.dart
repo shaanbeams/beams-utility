@@ -378,25 +378,26 @@ class _PrimaryInputFieldState extends State<PrimaryInputField> {
               focusNode: widget.focusNode,
               autofocus: widget.autoFocus ?? false,
               controller: widget.txtController,
-              onChanged: (s) {
-                final formattedValue = widget.textType == TextInputType.number
-                    ? _restrictToThreeDecimals(s)
-                    : s;
+              onChanged: widget.onChanged,
+              //  (s) {
+              //   final formattedValue = widget.textType == TextInputType.number
+              //       ? _restrictToThreeDecimals(s)
+              //       : s;
 
-                if (widget.txtController != null) {
-                  widget.txtController!.text = formattedValue;
+              //   if (widget.txtController != null) {
+              //     widget.txtController!.text = formattedValue;
 
-                  widget.txtController!.selection = TextSelection.collapsed(
-                    offset: formattedValue.length,
-                  );
-                }
+              //     widget.txtController!.selection = TextSelection.collapsed(
+              //       offset: formattedValue.length,
+              //     );
+              //   }
 
-                if (widget.onChanged != null) {
-                  setState(() {
-                    widget.onChanged!(formattedValue);
-                  });
-                }
-              },
+              //   if (widget.onChanged != null) {
+              //     setState(() {
+              //       widget.onChanged!(formattedValue);
+              //     });
+              //   }
+              // },
               maxLines: widget.isTextArea == true ? 3 : 1,
               maxLength: widget.maxlength == 0 ? 1000 : widget.maxlength,
               cursorColor: widget.labelColor ?? ThemeColors.black,
@@ -432,11 +433,19 @@ class _PrimaryInputFieldState extends State<PrimaryInputField> {
               },
               onFieldSubmitted: widget.onSubmit,
               inputFormatters: [
+                if (widget.textType == TextInputType.number)
+                  DecimalTextInputFormatter(decimalRange: 3),
                 if (widget.formatter != null)
                   ...widget.formatter!
-                else
+                else if (widget.textType != TextInputType.number)
                   QuoteToBacktickFormatter(),
               ],
+              // inputFormatters: [
+              //   if (widget.formatter != null)
+              //     ...widget.formatter!
+              //   else
+              //     QuoteToBacktickFormatter(),
+              // ],
             ),
           ),
           widget.suffixIcon != null
@@ -450,7 +459,8 @@ class _PrimaryInputFieldState extends State<PrimaryInputField> {
                       showPassWord == false
                           ? widget.suffixIcon!
                           : "assets/icons/password_close.png",
-                      height: 18, // Reduced from 30 to prevent height stretching
+                      height:
+                          18, // Reduced from 30 to prevent height stretching
                     ),
                   ),
                 )
@@ -460,12 +470,30 @@ class _PrimaryInputFieldState extends State<PrimaryInputField> {
     );
   }
 
+  
+
   defaultSuffixIconFunction() {
     if (widget.isPassword == true) {
       setState(() {
         showPassWord = !showPassWord;
       });
     }
+  }
+}
+class DecimalTextInputFormatter extends TextInputFormatter {
+  final int decimalRange;
+
+  DecimalTextInputFormatter({this.decimalRange = 3});
+
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (newValue.text.isEmpty) return newValue;
+
+    final regex = RegExp('^\\d*\\.?\\d{0,$decimalRange}\$');
+    return regex.hasMatch(newValue.text) ? newValue : oldValue;
   }
 }
 

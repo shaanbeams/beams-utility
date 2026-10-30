@@ -52,6 +52,7 @@ dependencies:
   image_picker: ^1.1.2
   shimmer: ^3.0.0
   device_info_plus: ^11.1.0
+  uae_dirham_symbol: ^0.0.5 
 
 
 

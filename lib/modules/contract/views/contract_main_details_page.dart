@@ -143,17 +143,15 @@ class ContractMainPage extends StatelessWidget {
               txtController: contractController.txtTotalAmountController,
             ),
             gapHC(5),
-
             PrimaryInputField(
               enablests: contractController.isEditModeEnabled.value,
               labelYn: true,
               hintText: "Unit Price ( AED )",
               txtController: contractController.txtUnitPriceController,
             ),
-              gapHC(10),
+            gapHC(10),
             DetailsExpansion(),
             gapHC(5),
-
             Row(
               children: [
                 Expanded(
@@ -266,7 +264,7 @@ class ContractMainPage extends StatelessWidget {
                         }
                       },
                       child: CustomImagePicker(
-                        label: "Front image",
+                        label: "EID Front image",
                         image: contractController.lbytesImage1.value,
                         enable: contractController.isEditModeEnabled.value,
                       ),
@@ -307,7 +305,6 @@ class ContractMainPage extends StatelessWidget {
                 curveRadius: 10,
               ),
             ),
-         
             gapHC(60),
           ],
         ),
@@ -627,10 +624,10 @@ class _DetailsExpansionState extends State<DetailsExpansion> {
         ),
         child: ExpansionTile(
           initiallyExpanded: true,
-          collapsedBackgroundColor: ThemeColors.primaryBlueColor,
+          collapsedBackgroundColor: ThemeColors.black,
           collapsedIconColor: Colors.white,
           iconColor: ThemeColors.primaryBlueColor,
-          collapsedTextColor:  ThemeColors.white,
+          collapsedTextColor: ThemeColors.white,
           title: Text(
             "Amount Details",
             style: GoogleFonts.poppins(
@@ -643,9 +640,9 @@ class _DetailsExpansionState extends State<DetailsExpansion> {
             // Header Row
             Row(
               children: [
-                const Expanded(flex:6, child: SizedBox()),
+                const Expanded(flex: 6, child: SizedBox()),
                 Expanded(
-                  flex: 8,
+                  flex: 10,
                   child: Center(
                     child: Text(
                       "Amount",
@@ -659,7 +656,7 @@ class _DetailsExpansionState extends State<DetailsExpansion> {
                   ),
                 ),
                 Expanded(
-                  flex: 5,
+                  flex: 3,
                   child: Center(
                     child: Text(
                       "VAT %",
@@ -728,22 +725,23 @@ class _DetailsExpansionState extends State<DetailsExpansion> {
     required TextEditingController vatAmountController,
   }) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      // margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 3),
       decoration: BoxDecoration(
         color: const Color(0xFFF9FAFB),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade200),
+        // borderRadius: BorderRadius.circular(8),
+        // border: Border.all(color: Colors.grey.shade200),
       ),
       child: Row(
         children: [
+          const SizedBox(width: 8),
           Expanded(
             flex: 8,
             child: Text(
               headValue,
               style: GoogleFonts.poppins(
                 color: const Color(0xFF374151),
-                fontSize: 13,
+                fontSize: 11,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -754,6 +752,7 @@ class _DetailsExpansionState extends State<DetailsExpansion> {
             child: SizedBox(
               height: 38,
               child: TextField(
+                textAlign: TextAlign.end,
                 controller: amountValueController,
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF111827),
@@ -788,6 +787,10 @@ class _DetailsExpansionState extends State<DetailsExpansion> {
             child: SizedBox(
               height: 38,
               child: TextField(
+                inputFormatters: [
+                  // FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+                  DecimalVATTextInputFormatter(decimalRange: 2),
+                ],
                 controller: vatAmountController,
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF111827),
@@ -869,5 +872,50 @@ class _amountDetailsItem extends StatelessWidget {
                       txtController: vatAmountController,
                       textType: TextInputType.number))
             ])));
+  }
+}
+
+class DecimalVATTextInputFormatter extends TextInputFormatter {
+  final int decimalRange;
+  final bool allowNegative;
+
+  DecimalVATTextInputFormatter({
+    this.decimalRange = 2,
+    this.allowNegative = false,
+  }) : assert(decimalRange >= 0);
+
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (newValue.text.isEmpty) return newValue;
+
+    // Build regex based on whether negative numbers are allowed
+    final pattern = allowNegative
+        ? r'^-?\d*\.?\d{0,' + decimalRange.toString() + r'}$'
+        : r'^\d*\.?\d{0,' + decimalRange.toString() + r'}$';
+
+    final regex = RegExp(pattern);
+
+    if (regex.hasMatch(newValue.text)) {
+      // Prevent redundant leading zeros (e.g., "00", "005")
+      if (_hasInvalidLeadingZeros(newValue.text)) {
+        return oldValue;
+      }
+      return newValue;
+    }
+
+    return oldValue;
+  }
+
+  bool _hasInvalidLeadingZeros(String text) {
+    if (text.startsWith('0') && text.length > 1 && text[1] != '.') {
+      return true;
+    }
+    if (text.startsWith('-0') && text.length > 2 && text[2] != '.') {
+      return true;
+    }
+    return false;
   }
 }

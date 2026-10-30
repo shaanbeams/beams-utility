@@ -15,26 +15,54 @@ class LoginFunctions {
   /// Checks if both fields are non-empty, then calls the login function from the repository
   ///  If the login is successful, it navigates to the home page
 
-  static fnLogin({required String username, required String password}) async {
-    if (username.isNotEmpty && password.isNotEmpty) {
-      loginRepo.loginUser(userName: username, password: password).then((response) {
-        if (response != null) {
-          Global.userCD = response.userCd;
-          Global.userName = response.userName;
+  // static fnLogin({required String username, required String password}) async {
+  //   if (username.isNotEmpty && password.isNotEmpty) {
+  //     loginRepo.loginUser(userName: username, password: password).then((response) {
+  //       if (response != null) {
+  //         Global.userCD = response.userCd;
+  //         Global.userName = response.userName;
 
-          Global.loginUserName = username;
-          Global.loginPassword = password;
+  //         Global.loginUserName = username;
+  //         Global.loginPassword = password;
 
-          ///todo
-          fnLoginSuccess();
-        }
-      }).catchError((error) {
-        logInController.loginErrorText.value = "Login failed: $error";
-      });
-    } else {
-      logInController.loginErrorText.value = "Please enter both username and password";
-    }
+  //         ///todo
+  //         fnLoginSuccess();
+  //       }
+  //     }).catchError((error) {
+  //       logInController.loginErrorText.value = "Login failed: $error";
+  //     });
+  //   } else {
+  //     logInController.loginErrorText.value = "Please enter both username and password";
+  //   }
+  // }
+  static Future<void> fnLogin({required String username, required String password}) async {
+  if (username.isEmpty || password.isEmpty) {
+    logInController.loginErrorText.value = "Please enter both username and password";
+    return; // Exit early
   }
+
+  try {
+    // 1. Await the repository call so execution pauses here until the server responds
+    final response = await loginRepo.loginUser(userName: username, password: password);
+
+    if (response != null) {
+      Global.userCD = response.userCd;
+      Global.userName = response.userName;
+
+      Global.loginUserName = username;
+      Global.loginPassword = password;
+
+      ///todo
+      fnLoginSuccess();
+    } else {
+      logInController.loginErrorText.value = "Login failed: Invalid response";
+    }
+  } catch (error) {
+    // 2. Catch any network or server errors
+    logInController.loginErrorText.value = "Login failed: $error";
+    rethrow; // Pass the error up so the button's try/catch knows it failed
+  }
+}
 
   /// Function to navigate to HomePage after successful login
   static void fnLoginSuccess() {

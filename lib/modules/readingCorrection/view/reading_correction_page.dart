@@ -411,15 +411,14 @@ class _ReadingCorrectionPageState extends State<ReadingCorrectionPage>
                             ),
                             Expanded(
                               child: CustomSearchField(
-                                 labelColor: ThemeColors.primaryBlueColor,
-                    borderColor: Colors.grey.withOpacity(0.8),
-                    fieldColor: ThemeColors.white,
+                                labelColor: ThemeColors.primaryBlueColor,
+                                borderColor: Colors.grey.withOpacity(0.8),
+                                fieldColor: ThemeColors.white,
                                 enablests: readingCorrectionController
                                     .isEditModeEnabled.value,
                                 labelYn: true,
                                 label: "Appartment code",
                                 hintLabel: "Appartment code",
-                                
                                 hintSize: 11,
                                 onSearchTap: () {
                                   if (readingCorrectionController
@@ -1098,47 +1097,65 @@ class _ReadingCorrectionPageState extends State<ReadingCorrectionPage>
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 30, 10),
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Row(
                                 children: [
                                   _tHead(
                                       title: "Total Amount",
                                       color: ThemeColors.primaryBlueColor),
                                   const Spacer(),
-                                  Obx(() => Text(readingCorrectionController
-                                      .totalCurrAmount.value
-                                      .toStringAsFixed(3))),
+                                  Obx(() => Helper.dirhamFormatter(
+                                          value: readingCorrectionController
+                                              .totalCurrAmount.value
+                                              .toStringAsFixed(3))
+                                      // Text(readingCorrectionController
+                                      //     .totalCurrAmount.value
+                                      //     .toStringAsFixed(3))
+
+                                      ),
                                 ],
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 30, 10),
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Row(
                                 children: [
                                   _tHead(
                                       title: "Total Tax Amount",
                                       color: ThemeColors.primaryBlueColor),
                                   const Spacer(),
-                                  Obx(() => Text(readingCorrectionController
-                                      .totalCurrTaxAmount.value
-                                      .toStringAsFixed(3))),
+                                  Obx(() => Helper.dirhamFormatter(
+                                          value: readingCorrectionController
+                                              .totalCurrTaxAmount.value
+                                              .toStringAsFixed(3))
+
+                                      //  Text(readingCorrectionController
+                                      // .totalCurrTaxAmount.value
+                                      // .toStringAsFixed(3))
+                                      ),
                                 ],
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 30, 10),
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Row(
                                 children: [
                                   _tHead(
                                       title: "Net Amount (Inc Tax)",
                                       color: ThemeColors.primaryBlueColor),
                                   const Spacer(),
-                                  Obx(() => Text(
-                                        readingCorrectionController
-                                            .netAmount.value
-                                            .toStringAsFixed(3),
-                                        style: TextStyle(fontSize: 15),
-                                      )),
+
+                                  Obx(() => Helper.dirhamFormatter(
+                                      value: readingCorrectionController
+                                          .netAmount.value
+                                          .toStringAsFixed(3)))
+
+                                  // Text(
+                                  //       readingCorrectionController
+                                  //           .netAmount.value
+                                  //           .toStringAsFixed(3),
+                                  //       style: TextStyle(fontSize: 15),
+                                  //     )),
                                 ],
                               ),
                             ),

@@ -12,6 +12,7 @@ import 'package:gas_utility_app/support/custom_theme.dart';
 import 'package:gas_utility_app/support/helper.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+ 
 
 import '../../../support/common_widgets/common_funtions.dart';
 import '../../../support/global.dart';
@@ -39,8 +40,6 @@ class _ContractReceiptPageState extends State<ContractReceiptPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       showLoadingDialog();
-
-  
     });
 
     if (widget.isFromContractPage == false) {
@@ -112,7 +111,7 @@ class _ContractReceiptPageState extends State<ContractReceiptPage> {
                       "0");
             },
             fnonLastButtonPressed: () {
-              showLoadingDialog();   
+              showLoadingDialog();
               contractReceiptController.fngetLastContractDetails(
                   mode: "LAST", docNo: "");
             },
@@ -125,138 +124,173 @@ class _ContractReceiptPageState extends State<ContractReceiptPage> {
       body: Column(
         children: [
           Container(
-  width: double.infinity,
-  decoration: BoxDecoration(
-    boxShadow: [
-      BoxShadow(
-        color: Colors.grey.withOpacity(0.7),
-        spreadRadius: 2,
-        blurRadius: 5,
-        offset: const Offset(0, 5),
-      ),
-    ],
-    gradient: ThemeGradient.gradient,
-    borderRadius: const BorderRadius.only(
-      bottomRight: Radius.circular(30), // Slightly tighter curve
-    ),
-  ),
-  child: SafeArea(
-    bottom: false,
-    child: Padding(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 12), // Reduced vertical padding
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Top Bar (Back Button, Icon, Title)
-          Padding(
-            padding: const EdgeInsets.only(top: 8, bottom: 8), // Reduced top padding
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Bounce(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  duration: const Duration(milliseconds: 100),
-                  child: const Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 16, 0), // Tighter spacing
-                    child: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      color: ThemeColors.white,
-                      size: 20,
-                    ),
-                  ),
-                ),
-                Image.asset(
-                  "assets/icons/contract_receipt.png",
-                  height: 32, // Slightly compact icon size
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 12),
-                  child: Text(
-                    "Contract Receipt",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      color: ThemeColors.white,
-                      fontSize: 18, // Slightly reduced font size for compactness
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.7),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: const Offset(0, 5),
                 ),
               ],
+              gradient: ThemeGradient.gradient,
+              borderRadius: const BorderRadius.only(
+                bottomRight: Radius.circular(30), // Slightly tighter curve
+              ),
+            ),
+            child: SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(
+                    16, 8, 16, 12), // Reduced vertical padding
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Top Bar (Back Button, Icon, Title)
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 8, bottom: 8), // Reduced top padding
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Bounce(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            duration: const Duration(milliseconds: 100),
+                            child: const Padding(
+                              padding: EdgeInsets.fromLTRB(
+                                  0, 0, 16, 0), // Tighter spacing
+                              child: Icon(
+                                Icons.arrow_back_ios_new_rounded,
+                                color: ThemeColors.white,
+                                size: 20,
+                              ),
+                            ),
+                          ),
+                          Image.asset(
+                            "assets/icons/contract_receipt.png",
+                            height: 32, // Slightly compact icon size
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12),
+                            child: Text(
+                              "Contract Receipt",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.poppins(
+                                color: ThemeColors.white,
+                                fontSize:
+                                    18, // Slightly reduced font size for compactness
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // Search Field & Date Row
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: CustomSearchField(
+                              labelColor: Colors.white,
+                              label: "Request Doc No",
+                              labelYn: true,
+                              hintLabel: "Request Doc No",
+                              controller: contractReceiptController.txtReqDocNo,
+                              onSearchTap: () {
+                                List searchColumn = [
+                                  {
+                                    "showItem": true,
+                                    "columnName": "DOCNO",
+                                    "showName": "Document No"
+                                  },
+                                  {
+                                    "showItem": true,
+                                    "columnName": "CONTRACT_NO",
+                                    "showName": "Contract No"
+                                  },
+                                  {
+                                    "showItem": true,
+                                    "columnName": "PARTYNAME",
+                                    "showName": "Party Name"
+                                  },
+                                  {
+                                    "showItem": true,
+                                    "columnName": "BUILDING_CODE",
+                                    "showName": "Building Code"
+                                  },
+                                  {
+                                    "showItem": true,
+                                    "columnName": "APARTMENT_CODE",
+                                    "showName": "Apartment Code"
+                                  },
+                                ];
+                                Get.dialog(lookUpDialogue(
+                                  callBackFn: (value) {
+                                    contractReceiptController.txtReqDocNo.text =
+                                        value["DOCNO"];
+                                    contractReceiptController
+                                        .fngetLastContractDetails(
+                                            mode: "VIEW",
+                                            docNo: value["DOCNO"]);
+                                    Get.back();
+                                  },
+                                  tableName: "GGASCONTRACTREC",
+                                  filter: [],
+                                  searchColumn: searchColumn,
+                                ));
+                              },
+                            ),
+                          ),
+                          gapWC(10),
+                          Expanded(
+                            flex: 2,
+                            child: widget.isFromContractPage == true
+                                ? Row(children: [
+                                    _tHead(title: "Date : "),
+                                    _tValue(
+                                        value: Helper.convertDateFormat2(
+                                            dateTime:
+                                                DateTime.now().toString()))
+                                  ])
+                                : Row(
+                                    children: [
+                                      _tHead(title: "Date : "),
+                                      Obx(() => Text(
+                                          contractReceiptController
+                                                      .docdate.value !=
+                                                  null
+                                              ? Helper.convertDateFormat1(
+                                                  dateTime:
+                                                      contractReceiptController
+                                                          .docdate.value!)
+                                              : Helper.convertDateFormat2(
+                                                  dateTime: DateTime.now()
+                                                      .toString()),
+                                          style: GoogleFonts.poppins(
+                                              color: ThemeColors.white,
+                                              fontSize: Get.width * .19 > 200
+                                                  ? 15
+                                                  : 11,
+                                              fontWeight: FontWeight.normal))),
+                                    ],
+                                  ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
-          
-          // Search Field & Date Row
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: CustomSearchField(
-                    labelColor: Colors.white,
-                    label: "Request Doc No",
-                    labelYn: true,
-                    hintLabel: "Request Doc No",
-                    controller: contractReceiptController.txtReqDocNo,
-                    onSearchTap: () {
-                      List searchColumn = [
-                        {"showItem": true, "columnName": "DOCNO", "showName": "Document No"},
-                        {"showItem": true, "columnName": "CONTRACT_NO", "showName": "Contract No"},
-                        {"showItem": true, "columnName": "PARTYNAME", "showName": "Party Name"},
-                        {"showItem": true, "columnName": "BUILDING_CODE", "showName": "Building Code"},
-                        {"showItem": true, "columnName": "APARTMENT_CODE", "showName": "Apartment Code"},
-                      ];
-                      Get.dialog(lookUpDialogue(
-                        callBackFn: (value) {
-                          contractReceiptController.txtReqDocNo.text = value["DOCNO"];
-                          contractReceiptController.fngetLastContractDetails(
-                              mode: "VIEW", docNo: value["DOCNO"]);
-                          Get.back();
-                        },
-                        tableName: "GGASCONTRACTREC",
-                        filter: [],
-                        searchColumn: searchColumn,
-                      ));
-                    },
-                  ),
-                ),
-                gapWC(10),
-                Expanded(
-                  flex: 2,
-                  child: widget.isFromContractPage == true
-                      ? Row(children: [
-                          _tHead(title: "Date : "),
-                          _tValue(
-                              value: Helper.convertDateFormat2(
-                                  dateTime: DateTime.now().toString()))
-                        ])
-                      : Row(
-                          children: [
-                            _tHead(title: "Date : "),
-                            Obx(() => Text(
-                                contractReceiptController.docdate.value != null
-                                    ? Helper.convertDateFormat1(
-                                        dateTime: contractReceiptController.docdate.value!)
-                                    : Helper.convertDateFormat2(
-                                        dateTime: DateTime.now().toString()),
-                                style: GoogleFonts.poppins(
-                                    color: ThemeColors.white,
-                                    fontSize: Get.width * .19 > 200 ? 15 : 11,
-                                    fontWeight: FontWeight.normal))),
-                          ],
-                        ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ),
-  ),
-),
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
@@ -354,527 +388,611 @@ class _ContractReceiptPageState extends State<ContractReceiptPage> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Obx(
-                        () => ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            itemCount:
-                                contractReceiptController.chargeRows.length,
-                            itemBuilder: (context, index) {
-                              final chargeRow =
-                                  contractReceiptController.chargeRows[index];
+                    widget.isFromContractPage == true
+                        ? Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Obx(
+                              () => ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  itemCount: contractReceiptController
+                                      .chargeRows.length,
+                                  itemBuilder: (context, index) {
+                                    final chargeRow = contractReceiptController
+                                        .chargeRows[index];
 
-                              ///Node Function///
-                              chargeRow.focusNode.addListener(() {
-                                if (!chargeRow.focusNode.hasFocus) {
-                                  contractReceiptController
-                                      .checkNodeFocus(index);
-                                }
-                              });
-                              return Obx(
-                                () => Container(
-                                    margin: const EdgeInsets.only(bottom: 5),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.2),
-                                            spreadRadius: 2,
-                                            blurRadius: 5,
-                                            offset: const Offset(0, 5),
-                                          ),
-                                        ]),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                              child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                contractReceiptController
-                                                    .chargeRows[index].name,
-                                                style: GoogleFonts.poppins(
-                                                    color: ThemeColors
-                                                        .primaryBlueColor,
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 3),
-                                                child: Row(
-                                                  children: [
-                                                    Expanded(
-                                                      flex: 3,
-                                                      child: Text(
-                                                        "Amount",
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                          color:
-                                                              ThemeColors.black,
-                                                          fontSize: 10,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    gapWC(5),
-                                                    Expanded(
-                                                      flex: 2,
-                                                      child: Text(
-                                                          contractReceiptController
-                                                              .chargeRows[index]
-                                                              .amount
-                                                              .value
-                                                              .toStringAsFixed(
-                                                                  3),
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            color: ThemeColors
-                                                                .black,
-                                                            fontSize: 10,
-                                                          )),
-                                                    ),
-                                                  ],
+                                    ///Node Function///
+                                    chargeRow.focusNode.addListener(() {
+                                      if (!chargeRow.focusNode.hasFocus) {
+                                        contractReceiptController
+                                            .checkNodeFocus(index);
+                                      }
+                                    });
+                                    return Obx(
+                                      () => Container(
+                                          margin:
+                                              const EdgeInsets.only(bottom: 5),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey
+                                                      .withOpacity(0.2),
+                                                  spreadRadius: 2,
+                                                  blurRadius: 5,
+                                                  offset: const Offset(0, 5),
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 3),
-                                                child: Row(
+                                              ]),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Expanded(
+                                                    child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    Expanded(
-                                                      flex: 3,
-                                                      child: Text(
-                                                        "Amt Received",
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                          color:
-                                                              ThemeColors.black,
-                                                          fontSize: 10,
-                                                        ),
-                                                      ),
+                                                    Text(
+                                                      contractReceiptController
+                                                          .chargeRows[index]
+                                                          .name,
+                                                      style: GoogleFonts.poppins(
+                                                          color: ThemeColors
+                                                              .primaryBlueColor,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500),
                                                     ),
-                                                    gapWC(5),
-                                                    Expanded(
-                                                      flex: 2,
-                                                      child: Text(
-                                                          contractReceiptController
-                                                              .chargeRows[index]
-                                                              .amountReceived
-                                                              .value
-                                                              .toStringAsFixed(
-                                                                  3),
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            color: ThemeColors
-                                                                .black,
-                                                            fontSize: 10,
-                                                          )),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 3),
-                                                child: Row(
-                                                  children: [
-                                                    Expanded(
-                                                      flex: 3,
-                                                      child: Text(
-                                                        "Tax amount",
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                          color:
-                                                              ThemeColors.black,
-                                                          fontSize: 10,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    gapWC(5),
-                                                    Expanded(
-                                                      flex: 2,
-                                                      child: Text(
-                                                          contractReceiptController
-                                                              .chargeRows[index]
-                                                              .currTaxAmount
-                                                              .value
-                                                              .toStringAsFixed(
-                                                                  3),
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                                  color:
-                                                                      ThemeColors
-                                                                          .black,
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500)),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 3),
-                                                child: Row(
-                                                  children: [
-                                                    Expanded(
-                                                      flex: 3,
-                                                      child: Text(
-                                                        "Total",
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                          color:
-                                                              ThemeColors.black,
-                                                          fontSize: 10,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    gapWC(5),
-                                                    Expanded(
-                                                      flex: 2,
-                                                      child: Obx(
-                                                        () => Text(
-                                                            contractReceiptController
-                                                                .chargeRows[
-                                                                    index]
-                                                                .total
-                                                                .value
-                                                                .toStringAsFixed(
-                                                                    3),
-                                                            style: GoogleFonts.poppins(
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 3),
+                                                      child: Row(
+                                                        children: [
+                                                          Expanded(
+                                                            flex: 3,
+                                                            child: Text(
+                                                              "Amount",
+                                                              style: GoogleFonts
+                                                                  .poppins(
                                                                 color:
                                                                     ThemeColors
                                                                         .black,
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500)),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 3),
-                                                child: Row(
-                                                  children: [
-                                                    Expanded(
-                                                      flex: 3,
-                                                      child: Text(
-                                                        "Balance",
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                          color:
-                                                              ThemeColors.black,
-                                                          fontSize: 10,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    gapWC(5),
-                                                    Expanded(
-                                                      flex: 2,
-                                                      child: Text(
-                                                          contractReceiptController
-                                                              .chargeRows[index]
-                                                              .balance
-                                                              .value
-                                                              .toStringAsFixed(
-                                                                  3),
-                                                          style: GoogleFonts
-                                                              .poppins(
+                                                                fontSize: 10,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          gapWC(5),
+                                                          Expanded(
+                                                            flex: 2,
+                                                            child: Text(
+                                                                contractReceiptController
+                                                                    .chargeRows[
+                                                                        index]
+                                                                    .amount
+                                                                    .value
+                                                                    .toStringAsFixed(
+                                                                        3),
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
                                                                   color:
                                                                       ThemeColors
                                                                           .black,
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500)),
+                                                                  fontSize: 10,
+                                                                )),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 3),
+                                                      child: Row(
+                                                        children: [
+                                                          Expanded(
+                                                            flex: 3,
+                                                            child: Text(
+                                                              "Amt Received",
+                                                              style: GoogleFonts
+                                                                  .poppins(
+                                                                color:
+                                                                    ThemeColors
+                                                                        .black,
+                                                                fontSize: 10,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          gapWC(5),
+                                                          Expanded(
+                                                            flex: 2,
+                                                            child: Text(
+                                                                contractReceiptController
+                                                                    .chargeRows[
+                                                                        index]
+                                                                    .amountReceived
+                                                                    .value
+                                                                    .toStringAsFixed(
+                                                                        3),
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  color:
+                                                                      ThemeColors
+                                                                          .black,
+                                                                  fontSize: 10,
+                                                                )),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 3),
+                                                      child: Row(
+                                                        children: [
+                                                          Expanded(
+                                                            flex: 3,
+                                                            child: Text(
+                                                              "Tax amount",
+                                                              style: GoogleFonts
+                                                                  .poppins(
+                                                                color:
+                                                                    ThemeColors
+                                                                        .black,
+                                                                fontSize: 10,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          gapWC(5),
+                                                          Expanded(
+                                                            flex: 2,
+                                                            child: Text(
+                                                                contractReceiptController
+                                                                    .chargeRows[
+                                                                        index]
+                                                                    .currTaxAmount
+                                                                    .value
+                                                                    .toStringAsFixed(
+                                                                        3),
+                                                                style: GoogleFonts.poppins(
+                                                                    color: ThemeColors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        10,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500)),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 3),
+                                                      child: Row(
+                                                        children: [
+                                                          Expanded(
+                                                            flex: 3,
+                                                            child: Text(
+                                                              "Total",
+                                                              style: GoogleFonts
+                                                                  .poppins(
+                                                                color:
+                                                                    ThemeColors
+                                                                        .black,
+                                                                fontSize: 10,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          gapWC(5),
+                                                          Expanded(
+                                                            flex: 2,
+                                                            child: Obx(
+                                                              () => Text(
+                                                                  contractReceiptController
+                                                                      .chargeRows[
+                                                                          index]
+                                                                      .total
+                                                                      .value
+                                                                      .toStringAsFixed(
+                                                                          3),
+                                                                  style: GoogleFonts.poppins(
+                                                                      color: ThemeColors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          10,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500)),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 3),
+                                                      child: Row(
+                                                        children: [
+                                                          Expanded(
+                                                            flex: 3,
+                                                            child: Text(
+                                                              "Balance",
+                                                              style: GoogleFonts
+                                                                  .poppins(
+                                                                color:
+                                                                    ThemeColors
+                                                                        .black,
+                                                                fontSize: 10,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          gapWC(5),
+                                                          Expanded(
+                                                            flex: 2,
+                                                            child: Text(
+                                                                contractReceiptController
+                                                                    .chargeRows[
+                                                                        index]
+                                                                    .balance
+                                                                    .value
+                                                                    .toStringAsFixed(
+                                                                        3),
+                                                                style: GoogleFonts.poppins(
+                                                                    color: ThemeColors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        10,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500)),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ],
-                                                ),
-                                              ),
-                                            ],
+                                                )),
+                                                Expanded(
+                                                    child: PrimaryInputField(
+                                                  enablests:
+                                                      widget.isFromContractPage,
+                                                  focusNode:
+                                                      contractReceiptController
+                                                          .chargeRows[index]
+                                                          .focusNode,
+                                                  labelYn: true,
+                                                  label: "Current Amount",
+                                                  hintText: "0.00",
+                                                  txtController:
+                                                      contractReceiptController
+                                                          .chargeRows[index]
+                                                          .txtCurrentAmt,
+                                                  textType:
+                                                      TextInputType.number,
+                                                  onChanged: (p0) {
+                                                    contractReceiptController
+                                                        .fnEnterCrntAmt(
+                                                            p0, index);
+                                                  },
+                                                )),
+                                              ],
+                                            ),
                                           )),
+                                    );
+                                  }),
+                            ),
+
+                            //  Row(
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Expanded(
+                            //           flex: 2,
+                            //           child: Column(
+                            //             children: [
+                            //               const SizedBox(
+                            //                   height: 40, child: Text(" ")),
+                            //               // SizedBox(
+                            //               //   height: 65,
+                            //               //   child: Align(
+                            //               //     alignment: Alignment.center,
+                            //               //     child: _tHead(title: "Monthly Amount", color: ThemeColors.primaryBlueColor),
+                            //               //   ),
+                            //               // ),
+                            //               // SizedBox(
+                            //               //   height: 65,
+                            //               //   child: Align(
+                            //               //     alignment: Alignment.center,
+                            //               //     child: _tHead(title: "Boiler gas Amount", color: ThemeColors.primaryBlueColor),
+                            //               //   ),
+                            //               // ),
+                            //               SizedBox(
+                            //                 height: 65,
+                            //                 child: Align(
+                            //                   alignment: Alignment.center,
+                            //                   child: _tHead(
+                            //                       title: "Insurance",
+                            //                       color:
+                            //                           ThemeColors.primaryBlueColor),
+                            //                 ),
+                            //               ),
+                            //               SizedBox(
+                            //                   height: 65,
+                            //                   child: Align(
+                            //                     alignment: Alignment.center,
+                            //                     child: _tHead(
+                            //                         title: "Deposit",
+                            //                         color:
+                            //                             ThemeColors.primaryBlueColor),
+                            //                   )),
+                            //               SizedBox(
+                            //                   height: 65,
+                            //                   child: Align(
+                            //                     alignment: Alignment.center,
+                            //                     child: _tHead(
+                            //                         title: "Connection",
+                            //                         color:
+                            //                             ThemeColors.primaryBlueColor),
+                            //                   )),
+                            //               SizedBox(
+                            //                   height: 65,
+                            //                   child: Align(
+                            //                     alignment: Alignment.center,
+                            //                     child: _tHead(
+                            //                         title: "Maintanance",
+                            //                         color:
+                            //                             ThemeColors.primaryBlueColor),
+                            //                   )),
+                            //               SizedBox(
+                            //                   height: 65,
+                            //                   child: Align(
+                            //                     alignment: Alignment.center,
+                            //                     child: _tHead(
+                            //                         title: "Disconnection",
+                            //                         color:
+                            //                             ThemeColors.primaryBlueColor),
+                            //                   )),
+                            //               // SizedBox(
+                            //               //     height: 65,
+                            //               //     child: Align(
+                            //               //       alignment: Alignment.center,
+                            //               //       child: _tHead(title: "Clearance", color: ThemeColors.primaryBlueColor),
+                            //               //     )),
+                            //               SizedBox(
+                            //                   height: 65,
+                            //                   child: Align(
+                            //                     alignment: Alignment.center,
+                            //                     child: _tHead(
+                            //                         title: "Registration",
+                            //                         color:
+                            //                             ThemeColors.primaryBlueColor),
+                            //                   )),
+                            //               // SizedBox(
+                            //               //     height: 65,
+                            //               //     child: Align(
+                            //               //       alignment: Alignment.center,
+                            //               //       child: _tHead(title: "Administration fee", color: ThemeColors.primaryBlueColor),
+                            //               //     )),
+                            //               // SizedBox(
+                            //               //     height: 65,
+                            //               //     child: Align(
+                            //               //       alignment: Alignment.center,
+                            //               //       child: _tHead(title: "Bill meter reading fee", color: ThemeColors.primaryBlueColor),
+                            //               //     )),
+                            //               // SizedBox(
+                            //               //     height: 65,
+                            //               //     child: Align(
+                            //               //       alignment: Alignment.center,
+                            //               //       child: _tHead(title: "Facility fee", color: ThemeColors.primaryBlueColor),
+                            //               //     )),
+                            //               // SizedBox(
+                            //               //     height: 65,
+                            //               //     child: Align(
+                            //               //       alignment: Alignment.center,
+                            //               //       child: _tHead(title: "Delay Payment charge", color: ThemeColors.primaryBlueColor),
+                            //               //     )),
+                            //               // SizedBox(
+                            //               //     height: 65,
+                            //               //     child: Align(
+                            //               //       alignment: Alignment.center,
+                            //               //       child: _tHead(title: "Security Charges", color: ThemeColors.primaryBlueColor),
+                            //               //     )),
+                            //               SizedBox(
+                            //                   height: 65,
+                            //                   child: Align(
+                            //                     alignment: Alignment.center,
+                            //                     child: _tHead(
+                            //                         title: "Other Charge 1",
+                            //                         color:
+                            //                             ThemeColors.primaryBlueColor),
+                            //                   )),
+                            //               SizedBox(
+                            //                   height: 65,
+                            //                   child: Align(
+                            //                     alignment: Alignment.center,
+                            //                     child: _tHead(
+                            //                         title: "Other Charge 2",
+                            //                         color:
+                            //                             ThemeColors.primaryBlueColor),
+                            //                   )),
+                            //               SizedBox(
+                            //                   height: 65,
+                            //                   child: Align(
+                            //                     alignment: Alignment.center,
+                            //                     child: _tHead(
+                            //                         title: "Other Charge 3",
+                            //                         color:
+                            //                             ThemeColors.primaryBlueColor),
+                            //                   )),
+                            //             ],
+                            //           )),
+                            //       gapWC(10),
+                            //       Expanded(
+                            //           flex: 4,
+                            //           child: SizedBox(
+
+                            //               ///change height as 65* length of the list + 40
+                            //               height: 625,
+                            //               child: ListView(
+                            //                 controller: listViewScrollController,
+                            //                 clipBehavior: Clip.hardEdge,
+                            //                 scrollDirection: Axis.horizontal,
+                            //                 shrinkWrap: true,
+                            //                 children: [
+                            //                   const DetailsColumnWidget(
+                            //                     headValue: "Curr Amount",
+                            //                     enablests: true,
+                            //                   ),
+                            //                   gapWC(10),
+                            //                   const DetailsColumnWidget(
+                            //                     headValue: "Amount",
+                            //                   ),
+                            //                   gapWC(10),
+                            //                   const DetailsColumnWidget(
+                            //                       headValue: "Amt Received"),
+                            //                   gapWC(10),
+                            //                   const DetailsColumnWidget(
+                            //                       headValue: "Total"),
+                            //                   gapWC(10),
+                            //                   const DetailsColumnWidget(
+                            //                       headValue: "Balance"),
+                            //                   gapWC(10),
+                            //                 ],
+                            //               )))
+                            //     ]),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Obx(
+                              () => ListView.separated(
+                                physics: const NeverScrollableScrollPhysics(),
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                itemCount:
+                                    contractReceiptController.chargeRows.length,
+                                separatorBuilder: (_, __) => Divider(
+                                    height: 1, color: Colors.grey.shade300),
+                                itemBuilder: (context, index) {
+                                  final chargeRow = contractReceiptController
+                                      .chargeRows[index];
+
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      // Heading + info icon
+                                      Row(
+                                        children: [
                                           Expanded(
-                                              child: PrimaryInputField(
-                                            enablests:
-                                                widget.isFromContractPage,
-                                            focusNode: contractReceiptController
-                                                .chargeRows[index].focusNode,
-                                            labelYn: true,
-                                            label: "Current Amount",
-                                            hintText: "0.00",
-                                            txtController:
-                                                contractReceiptController
-                                                    .chargeRows[index]
-                                                    .txtCurrentAmt,
-                                            textType: TextInputType.number,
-                                            onChanged: (p0) {
-                                              contractReceiptController
-                                                  .fnEnterCrntAmt(p0, index);
-                                            },
-                                          )),
+                                            child: Text(
+                                              chargeRow.name,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.poppins(
+                                                color: ThemeColors
+                                                    .primaryBlueColor,
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                          InkWell(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            onTap: () => _showChargeDetails(
+                                                context, chargeRow),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(2),
+                                              child: Icon(
+                                                Icons.info_outline,
+                                                size: 18,
+                                                color: ThemeColors
+                                                    .primaryBlueColor,
+                                              ),
+                                            ),
+                                          ),
                                         ],
                                       ),
-                                    )),
-                              );
-                            }),
-                      ),
-
-                      //  Row(
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: [
-                      //       Expanded(
-                      //           flex: 2,
-                      //           child: Column(
-                      //             children: [
-                      //               const SizedBox(
-                      //                   height: 40, child: Text(" ")),
-                      //               // SizedBox(
-                      //               //   height: 65,
-                      //               //   child: Align(
-                      //               //     alignment: Alignment.center,
-                      //               //     child: _tHead(title: "Monthly Amount", color: ThemeColors.primaryBlueColor),
-                      //               //   ),
-                      //               // ),
-                      //               // SizedBox(
-                      //               //   height: 65,
-                      //               //   child: Align(
-                      //               //     alignment: Alignment.center,
-                      //               //     child: _tHead(title: "Boiler gas Amount", color: ThemeColors.primaryBlueColor),
-                      //               //   ),
-                      //               // ),
-                      //               SizedBox(
-                      //                 height: 65,
-                      //                 child: Align(
-                      //                   alignment: Alignment.center,
-                      //                   child: _tHead(
-                      //                       title: "Insurance",
-                      //                       color:
-                      //                           ThemeColors.primaryBlueColor),
-                      //                 ),
-                      //               ),
-                      //               SizedBox(
-                      //                   height: 65,
-                      //                   child: Align(
-                      //                     alignment: Alignment.center,
-                      //                     child: _tHead(
-                      //                         title: "Deposit",
-                      //                         color:
-                      //                             ThemeColors.primaryBlueColor),
-                      //                   )),
-                      //               SizedBox(
-                      //                   height: 65,
-                      //                   child: Align(
-                      //                     alignment: Alignment.center,
-                      //                     child: _tHead(
-                      //                         title: "Connection",
-                      //                         color:
-                      //                             ThemeColors.primaryBlueColor),
-                      //                   )),
-                      //               SizedBox(
-                      //                   height: 65,
-                      //                   child: Align(
-                      //                     alignment: Alignment.center,
-                      //                     child: _tHead(
-                      //                         title: "Maintanance",
-                      //                         color:
-                      //                             ThemeColors.primaryBlueColor),
-                      //                   )),
-                      //               SizedBox(
-                      //                   height: 65,
-                      //                   child: Align(
-                      //                     alignment: Alignment.center,
-                      //                     child: _tHead(
-                      //                         title: "Disconnection",
-                      //                         color:
-                      //                             ThemeColors.primaryBlueColor),
-                      //                   )),
-                      //               // SizedBox(
-                      //               //     height: 65,
-                      //               //     child: Align(
-                      //               //       alignment: Alignment.center,
-                      //               //       child: _tHead(title: "Clearance", color: ThemeColors.primaryBlueColor),
-                      //               //     )),
-                      //               SizedBox(
-                      //                   height: 65,
-                      //                   child: Align(
-                      //                     alignment: Alignment.center,
-                      //                     child: _tHead(
-                      //                         title: "Registration",
-                      //                         color:
-                      //                             ThemeColors.primaryBlueColor),
-                      //                   )),
-                      //               // SizedBox(
-                      //               //     height: 65,
-                      //               //     child: Align(
-                      //               //       alignment: Alignment.center,
-                      //               //       child: _tHead(title: "Administration fee", color: ThemeColors.primaryBlueColor),
-                      //               //     )),
-                      //               // SizedBox(
-                      //               //     height: 65,
-                      //               //     child: Align(
-                      //               //       alignment: Alignment.center,
-                      //               //       child: _tHead(title: "Bill meter reading fee", color: ThemeColors.primaryBlueColor),
-                      //               //     )),
-                      //               // SizedBox(
-                      //               //     height: 65,
-                      //               //     child: Align(
-                      //               //       alignment: Alignment.center,
-                      //               //       child: _tHead(title: "Facility fee", color: ThemeColors.primaryBlueColor),
-                      //               //     )),
-                      //               // SizedBox(
-                      //               //     height: 65,
-                      //               //     child: Align(
-                      //               //       alignment: Alignment.center,
-                      //               //       child: _tHead(title: "Delay Payment charge", color: ThemeColors.primaryBlueColor),
-                      //               //     )),
-                      //               // SizedBox(
-                      //               //     height: 65,
-                      //               //     child: Align(
-                      //               //       alignment: Alignment.center,
-                      //               //       child: _tHead(title: "Security Charges", color: ThemeColors.primaryBlueColor),
-                      //               //     )),
-                      //               SizedBox(
-                      //                   height: 65,
-                      //                   child: Align(
-                      //                     alignment: Alignment.center,
-                      //                     child: _tHead(
-                      //                         title: "Other Charge 1",
-                      //                         color:
-                      //                             ThemeColors.primaryBlueColor),
-                      //                   )),
-                      //               SizedBox(
-                      //                   height: 65,
-                      //                   child: Align(
-                      //                     alignment: Alignment.center,
-                      //                     child: _tHead(
-                      //                         title: "Other Charge 2",
-                      //                         color:
-                      //                             ThemeColors.primaryBlueColor),
-                      //                   )),
-                      //               SizedBox(
-                      //                   height: 65,
-                      //                   child: Align(
-                      //                     alignment: Alignment.center,
-                      //                     child: _tHead(
-                      //                         title: "Other Charge 3",
-                      //                         color:
-                      //                             ThemeColors.primaryBlueColor),
-                      //                   )),
-                      //             ],
-                      //           )),
-                      //       gapWC(10),
-                      //       Expanded(
-                      //           flex: 4,
-                      //           child: SizedBox(
-
-                      //               ///change height as 65* length of the list + 40
-                      //               height: 625,
-                      //               child: ListView(
-                      //                 controller: listViewScrollController,
-                      //                 clipBehavior: Clip.hardEdge,
-                      //                 scrollDirection: Axis.horizontal,
-                      //                 shrinkWrap: true,
-                      //                 children: [
-                      //                   const DetailsColumnWidget(
-                      //                     headValue: "Curr Amount",
-                      //                     enablests: true,
-                      //                   ),
-                      //                   gapWC(10),
-                      //                   const DetailsColumnWidget(
-                      //                     headValue: "Amount",
-                      //                   ),
-                      //                   gapWC(10),
-                      //                   const DetailsColumnWidget(
-                      //                       headValue: "Amt Received"),
-                      //                   gapWC(10),
-                      //                   const DetailsColumnWidget(
-                      //                       headValue: "Total"),
-                      //                   gapWC(10),
-                      //                   const DetailsColumnWidget(
-                      //                       headValue: "Balance"),
-                      //                   gapWC(10),
-                      //                 ],
-                      //               )))
-                      //     ]),
-                    ),
+                                      const SizedBox(height: 4),
+                                      Obx(() => _receiptLine(
+                                          "Total",
+                                          chargeRow.total.value
+                                              .toStringAsFixed(3))),
+                                      Obx(() => _receiptLine(
+                                          "Balance",
+                                          chargeRow.balance.value
+                                              .toStringAsFixed(3),
+                                          bold: true)),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
                     const Divider(),
                     Obx(
                       () => Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 0, 30, 10),
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: Row(
                               children: [
                                 _tHead(
                                     title: "Total Curr Amount",
                                     color: ThemeColors.primaryBlueColor),
                                 const Spacer(),
-                                Text(contractReceiptController
-                                    .totalCurrAmount.value
-                                    .toStringAsFixed(2)),
+                                Helper.dirhamFormatter(
+                                    value: contractReceiptController
+                                        .totalCurrAmount.value
+                                        .toStringAsFixed(2),
+                                    colour: Colors.black)
+                               
                               ],
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 0, 30, 10),
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: Row(
                               children: [
                                 _tHead(
                                     title: "Total Curr Tax Amount",
                                     color: ThemeColors.primaryBlueColor),
                                 const Spacer(),
-                                Text(contractReceiptController
-                                    .totalCurrTaxAmount.value
-                                    .toStringAsFixed(2)),
+                                Helper.dirhamFormatter(
+                                    value: contractReceiptController
+                                        .totalCurrTaxAmount.value
+                                        .toStringAsFixed(2),
+                                    colour: Colors.black)
                               ],
                             ),
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.fromLTRB(20, 0, 30, 10),
-                          //   child: Row(
-                          //     children: [
-                          //       _tHead(
-                          //           title: "Total Balance Amount",
-                          //           color: ThemeColors.primaryBlueColor),
-                          //       const Spacer(),
-                          //       Text(contractReceiptController
-                          //           .totalBalanceAmount.value
-                          //           .toStringAsFixed(2)),
-                          //     ],
-                          //   ),
-                          // ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 0, 30, 10),
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: Row(
                               children: [
                                 _tHead(
                                     title: "Net Amount (Inc Tax)",
                                     color: ThemeColors.primaryBlueColor),
                                 const Spacer(),
-                                Text(
-                                  contractReceiptController.netAmount.value
-                                      .toStringAsFixed(2),
-                                  style: TextStyle(fontSize: 15),
-                                ),
+                                Helper.dirhamFormatter(
+                                    value: contractReceiptController
+                                        .netAmount.value
+                                        .toStringAsFixed(2),
+                                    fontSize: 15,
+                                    colour: Colors.black),
+                                // Text(
+                                //   contractReceiptController.netAmount.value
+                                //       .toStringAsFixed(2),
+                                //   style: TextStyle(fontSize: 15),
+                                // ),
                               ],
                             ),
                           ),
@@ -934,55 +1052,54 @@ class _ContractReceiptPageState extends State<ContractReceiptPage> {
                         child: const Text("Credit card"),
                       ),
                     ),
-                      Visibility(
-                        visible: selectedOption == "Credit card",
-                        child: CustomSearchField(
-                           labelColor: ThemeColors.primaryBlueColor,
-                    borderColor: Colors.grey.withOpacity(0.8),
-                    fieldColor: ThemeColors.white,
-                          enablests:
-                              contractReceiptController.isEditModeEnabled.value,
-                          label: "Credit Card",
-                          labelYn: true,
-                          hintLabel: "Credit Card",
-                         
-                          hintSize: 11,
-                          onSearchTap: () {
-                            if (contractReceiptController
-                                    .isEditModeEnabled.value ==
-                                true) {
-                              List searchColumn = [
-                                {
-                                  "showItem": true,
-                                  "columnName": "CODE",
-                                  "showName": "Code"
+                    Visibility(
+                      visible: selectedOption == "Credit card",
+                      child: CustomSearchField(
+                        labelColor: ThemeColors.primaryBlueColor,
+                        borderColor: Colors.grey.withOpacity(0.8),
+                        fieldColor: ThemeColors.white,
+                        enablests:
+                            contractReceiptController.isEditModeEnabled.value,
+                        label: "Credit Card",
+                        labelYn: true,
+                        hintLabel: "Credit Card",
+                        hintSize: 11,
+                        onSearchTap: () {
+                          if (contractReceiptController
+                                  .isEditModeEnabled.value ==
+                              true) {
+                            List searchColumn = [
+                              {
+                                "showItem": true,
+                                "columnName": "CODE",
+                                "showName": "Code"
+                              },
+                              {
+                                "showItem": true,
+                                "columnName": "DESCP",
+                                "showName": "Description"
+                              },
+                            ];
+                            Get.dialog(
+                              barrierDismissible: false,
+                              lookUpDialogue(
+                                tableName: "CREDITCARDMASTER",
+                                filter: [],
+                                callBackFn: (value) {
+                                  if (value != null) {
+                                    Get.back();
+                                    contractReceiptController.txtCreditCard
+                                        .text = value["CODE"].toString();
+                                  }
                                 },
-                                {
-                                  "showItem": true,
-                                  "columnName": "DESCP",
-                                  "showName": "Description"
-                                },
-                              ];
-                              Get.dialog(
-                                barrierDismissible: false,
-                                lookUpDialogue(
-                                  tableName: "CREDITCARDMASTER",
-                                  filter: [],
-                                  callBackFn: (value) {
-                                    if (value != null) {
-                                      Get.back();
-                                      contractReceiptController.txtCreditCard
-                                          .text = value["CODE"].toString();
-                                    }
-                                  },
-                                  searchColumn: searchColumn,
-                                ),
-                              );
-                            }
-                          },
-                          controller: contractReceiptController.txtCreditCard,
-                        ),
-                      )
+                                searchColumn: searchColumn,
+                              ),
+                            );
+                          }
+                        },
+                        controller: contractReceiptController.txtCreditCard,
+                      ),
+                    )
 
                     // SizedBox(
                     //   height: 30,
@@ -1105,5 +1222,88 @@ Text _tValue({required String value, Color? color}) {
       fontSize: 13,
     ),
     textAlign: TextAlign.center,
+  );
+}
+
+Widget _receiptLine(String label, String value, {bool bold = false}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 3),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: GoogleFonts.poppins(
+            color: Colors.grey[700],
+            fontSize: 11,
+          ),
+        ),
+       
+        Helper.dirhamFormatter(value: value, colour: ThemeColors.black,fontSize: 12)
+       
+      ],
+    ),
+  );
+}
+
+void _showChargeDetails(BuildContext context, dynamic chargeRow) {
+  showModalBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+    ),
+    builder: (_) => Padding(
+      padding: const EdgeInsets.all(16),
+      child: Obx(
+        () => Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              chargeRow.name,
+              style: GoogleFonts.poppins(
+                color: ThemeColors.primaryBlueColor,
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const Divider(height: 20),
+            _detailLine("Amount", chargeRow.amount.value),
+            _detailLine("Amt Received", chargeRow.amountReceived.value),
+            _detailLine("Tax amount", chargeRow.currTaxAmount.value),
+            _detailLine("Total", chargeRow.total.value, bold: true),
+            _detailLine("Balance", chargeRow.balance.value, bold: true),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget _detailLine(String label, double value, {bool bold = false}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label, style: GoogleFonts.poppins(fontSize: 12)),
+        Helper.dirhamFormatter(value: value.toStringAsFixed(2), colour: Colors.black)
+        // UaeDirhamSymbolTextView(
+        //   amount: value,
+        //   fontSize: 12,
+        //   isFormatted: true,
+        //   includeDecimal: true,
+        //   // fontWeight: FontWeight.bold,
+        // ),
+        // Text(
+        //   value.toStringAsFixed(3),
+        //   style: GoogleFonts.poppins(
+        //     fontSize: 12,
+        //     fontWeight: bold ? FontWeight.w600 : FontWeight.w400,
+        //   ),
+        // ),
+      ],
+    ),
   );
 }
