@@ -219,12 +219,14 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                               flex: 3,
                               child: CustomSearchField(
                                 labelColor: Colors.white,
-                                label: "Request Doc No",
+                                label: "Gas Meter Reading Doc No",
                                 labelYn: true,
-                                hintLabel: "Request Doc No",
+                                enablests: false,
+                                hintLabel: "Gas Meter Reading Doc No",
                                 controller: gasMeterReadingController
                                     .txtDocNumController,
                                 onSearchTap: () {
+                                                if(gasMeterReadingController.isEditModeEnabled.value==false){
                                   List searchColumn = [
                                     {
                                       "showItem": true,
@@ -252,7 +254,7 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                     filter: [],
                                     searchColumn: searchColumn,
                                   ));
-                                },
+                                }},
                               )),
                           gapWC(10),
                           Expanded(
@@ -422,8 +424,8 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                 enablests: gasMeterReadingController
                                     .isEditModeEnabled.value,
                                 labelYn: true,
-                                label: "Appartment code",
-                                hintLabel: "Appartment code",
+                                label: "Apartment code",
+                                hintLabel: "Apartment code",
                                 fieldColor: ThemeColors.white,
                                 hintSize: 11,
                                 onSearchTap: () {
@@ -480,8 +482,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5),
                           child: PrimaryInputField(
-                            enablests: gasMeterReadingController
-                                .isEditModeEnabled.value,
+                   // enablests: gasMeterReadingController
+                                  //     .isEditModeEnabled.value,
+                                      enablests: false,
                             labelYn: true,
                             hintText: "Building Name",
                             txtController: gasMeterReadingController
@@ -514,8 +517,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                             children: [
                               Expanded(
                                 child: PrimaryInputField(
-                                  enablests: gasMeterReadingController
-                                      .isEditModeEnabled.value,
+                               // enablests: gasMeterReadingController
+                                  //     .isEditModeEnabled.value,
+                                      enablests: false,
                                   labelYn: true,
                                   hintText: "ContractNo",
                                   txtController: gasMeterReadingController
@@ -525,8 +529,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                               gapWC(10),
                               Expanded(
                                 child: PrimaryInputField(
-                                    enablests: gasMeterReadingController
-                                        .isEditModeEnabled.value,
+                               // enablests: gasMeterReadingController
+                                  //     .isEditModeEnabled.value,
+                                      enablests: false,
                                     labelYn: true,
                                     hintText: "Gas Meter No.",
                                     txtController: gasMeterReadingController
@@ -539,8 +544,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: PrimaryInputField(
-                            enablests: gasMeterReadingController
-                                .isEditModeEnabled.value,
+                      // enablests: gasMeterReadingController
+                                  //     .isEditModeEnabled.value,
+                                      enablests: false,
                             labelYn: true,
                             hintText: "Conversion Factor",
                             txtController: gasMeterReadingController
@@ -563,8 +569,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5),
                           child: PrimaryInputField(
-                            enablests: gasMeterReadingController
-                                .isEditModeEnabled.value,
+                     // enablests: gasMeterReadingController
+                                  //     .isEditModeEnabled.value,
+                                      enablests: false,
                             labelYn: true,
                             hintText: "Tenant name",
                             txtController: gasMeterReadingController
@@ -593,8 +600,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                             children: [
                               Expanded(
                                 child: PrimaryInputField(
-                                  enablests: gasMeterReadingController
-                                      .isEditModeEnabled.value,
+                              // enablests: gasMeterReadingController
+                                  //     .isEditModeEnabled.value,
+                                      enablests: false,
                                   labelYn: true,
                                   hintText: "Outstanding amount",
                                   txtController: gasMeterReadingController
@@ -604,8 +612,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                               gapWC(10),
                               Expanded(
                                 child: PrimaryInputField(
-                                  enablests: gasMeterReadingController
-                                      .isEditModeEnabled.value,
+                                  // enablests: gasMeterReadingController
+                                  //     .isEditModeEnabled.value,
+                                      enablests: false,
                                   labelYn: true,
                                   hintText: "Last Reading",
                                   txtController: gasMeterReadingController
@@ -618,8 +627,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5),
                           child: PrimaryInputField(
-                            enablests: gasMeterReadingController
-                                .isEditModeEnabled.value,
+                         // enablests: gasMeterReadingController
+                                  //     .isEditModeEnabled.value,
+                                      enablests: false,
                             labelYn: true,
                             hintText: "Last paid amount",
                             txtController:
@@ -670,10 +680,12 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                           onPressed: () async {
                                             // gasMeterReadingController.isEditModeEnabled.value
                                             //     ? () async {
-                                            var date =
-                                                await showCustomDatePicker(
-                                                    date: DateTime.now()
-                                                        .toString());
+                                            ///ZAMIN COMMENTED THIS CODE FOR NOW AS IT WAS CAUSING AN ISSUE WITH THE DATE PICKER. PLEASE REVIEW AND FIX IF NEEDED.17/11/2026 START
+                                            // var date =
+                                            //     await showCustomDatePicker(
+                                            //         date: DateTime.now()
+                                            //             .toString());
+                                             ///ZAMIN COMMENTED THIS CODE FOR NOW AS IT WAS CAUSING AN ISSUE WITH THE DATE PICKER. PLEASE REVIEW AND FIX IF NEEDED.17/11/2026 END
                                           },
                                           // gasMeterReadingController.contractDate.value =
                                           //     date;
@@ -738,8 +750,10 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                         onPressed: () async {
                                           // gasMeterReadingController.isEditModeEnabled.value
                                           //     ? () async {
-                                          var date = await showCustomDatePicker(
-                                              date: DateTime.now().toString());
+                                          ///ZAMIN COMMENTED THIS CODE FOR NOW AS IT WAS CAUSING AN ISSUE WITH THE DATE PICKER. PLEASE REVIEW AND FIX IF NEEDED.17/11/2026 START
+                                          // var date = await showCustomDatePicker(
+                                          //     date: DateTime.now().toString());
+                                          ///ZAMIN COMMENTED THIS CODE FOR NOW AS IT WAS CAUSING AN ISSUE WITH THE DATE PICKER. PLEASE REVIEW AND FIX IF NEEDED.17/11/2026 END
                                         },
                                         // gasMeterReadingController.contractDate.value =
                                         //     date;
@@ -765,91 +779,198 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                 )
                               ],
                             )),
-                        Align(
-                          alignment: Alignment.centerLeft,
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(
+                                12), // Adjust corner radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black
+                                    .withOpacity(0.1), // Soft shadow color
+                                spreadRadius: 4, // Increase for wider coverage
+                                blurRadius: 16, // Increase for softer edges
+                                offset: const Offset(
+                                    0, 4), // Vertical and horizontal drift
+                              ),
+                            ],
+                          ),
                           child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                              "Enter Current Reading ",
-                              style: GoogleFonts.poppins(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold),
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Text(
+                                      "Reading Details ",
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                          // child: PrimaryInputField(
+                                          //   textType: TextInputType.number,
+                                          //   enablests: gasMeterReadingController
+                                          //       .isEditModeEnabled.value,
+                                          //   labelYn: true,
+                                          //   hintText: "Current Reading",
+                                          //   txtController:
+                                          //       gasMeterReadingController
+                                          //           .txtCurrentReadingController,
+                                          //   onChanged: (value) {
+                                          //     gasMeterReadingController
+                                          //         .fnConsumptionCalculator(value);
+                                          //   },
+                                          // ),
+                                          child: Obx(
+                                        () => Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            PrimaryInputField(
+                                              textType: TextInputType.number,
+                                              enablests:
+                                                  gasMeterReadingController
+                                                      .isEditModeEnabled.value,
+                                              labelYn: true,
+                                              hintText: "Current Reading",
+                                              txtController:
+                                                  gasMeterReadingController
+                                                      .txtCurrentReadingController,
+                                              // If PrimaryInputField accepts error text directly:
+                                              // errorText: gasMeterReadingController.isCurrentReadingInvalid.value
+                                              //     ? gasMeterReadingController.currentReadingErrorMsg.value
+                                              //     : null,
+                                              onChanged: (value) {
+                                                gasMeterReadingController
+                                                    .validateCurrentReading();
+                                                gasMeterReadingController
+                                                    .fnConsumptionCalculator(
+                                                        value);
+                                              },
+                                            ),
+                                            if (gasMeterReadingController
+                                                .isCurrentReadingInvalid
+                                                .value) ...[
+                                              const SizedBox(height: 4),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 8),
+                                                child: Text(
+                                                  gasMeterReadingController
+                                                      .currentReadingErrorMsg
+                                                      .value,
+                                                  style: const TextStyle(
+                                                    color: Colors.red,
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ],
+                                        ),
+                                      )),
+                                      // gapWC(10),
+                                      // Expanded(
+                                      //   child: PrimaryInputField(
+                                      //     enablests: gasMeterReadingController
+                                      //         .isEditModeEnabled.value,
+                                      //     labelYn: true,
+                                      //     hintText: "Discount",
+                                      //     txtController: gasMeterReadingController
+                                      //         .txtDiscountController,
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: PrimaryInputField(
+                                           // enablests: gasMeterReadingController
+                                  //     .isEditModeEnabled.value,
+                                      enablests: false,
+                                          labelYn: true,
+                                          hintText: "Deposit",
+                                          txtController:
+                                              gasMeterReadingController
+                                                  .txtDepositController,
+                                        ),
+                                      ),
+                                      gapWC(10),
+                                      Expanded(
+                                        child: PrimaryInputField(
+                                              // enablests: gasMeterReadingController
+                                  //     .isEditModeEnabled.value,
+                                      enablests: false,
+                                          labelYn: true,
+                                          hintText: "Consumption",
+                                          txtController:
+                                              gasMeterReadingController
+                                                  .txtConsumptionController,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                  child: PrimaryInputField(
+                               // enablests: gasMeterReadingController
+                                  //     .isEditModeEnabled.value,
+                                      enablests: false,
+                                    labelYn: true,
+                                    hintText: "Unit Price",
+                                    txtController: gasMeterReadingController
+                                        .txtUnitPriceController,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    // Obx(
+                                    //   () =>
+                                    CupertinoCheckbox(
+                                      side: const BorderSide(width: 2),
+                                      value: gasMeterReadingController
+                                          .isFinalReading.value,
+                                      // value: gasMeterReadingController.otherAmountReq.value,
+                                      onChanged: gasMeterReadingController
+                                              .isEditModeEnabled.value
+                                          ? (_) {
+                                              gasMeterReadingController
+                                                      .isFinalReading.value =
+                                                  !gasMeterReadingController
+                                                      .isFinalReading.value;
+                                            }
+                                          : (_) {},
+                                      activeColor: ThemeColors.primaryBlueColor,
+                                    ),
+                                    // ),
+                                    const Text("Final Reading"),
+                                  ],
+                                ),
+                                gapHC(10),
+                              ],
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: PrimaryInputField(
-                                  textType: TextInputType.number,
-                                  enablests: gasMeterReadingController
-                                      .isEditModeEnabled.value,
-                                  labelYn: true,
-                                  hintText: "Current Reading",
-                                  txtController: gasMeterReadingController
-                                      .txtCurrentReadingController,
-                                  onChanged: (value) {
-                                    gasMeterReadingController
-                                        .fnConsumptionCalculator(value);
-                                  },
-                                ),
-                              ),
-                              // gapWC(10),
-                              // Expanded(
-                              //   child: PrimaryInputField(
-                              //     enablests: gasMeterReadingController
-                              //         .isEditModeEnabled.value,
-                              //     labelYn: true,
-                              //     hintText: "Discount",
-                              //     txtController: gasMeterReadingController
-                              //         .txtDiscountController,
-                              //   ),
-                              // ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: PrimaryInputField(
-                                  enablests: gasMeterReadingController
-                                      .isEditModeEnabled.value,
-                                  labelYn: true,
-                                  hintText: "Deposit",
-                                  txtController: gasMeterReadingController
-                                      .txtDepositController,
-                                ),
-                              ),
-                              gapWC(10),
-                              Expanded(
-                                child: PrimaryInputField(
-                                  enablests: gasMeterReadingController
-                                      .isEditModeEnabled.value,
-                                  labelYn: true,
-                                  hintText: "Consumption",
-                                  txtController: gasMeterReadingController
-                                      .txtConsumptionController,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          child: PrimaryInputField(
-                            enablests: gasMeterReadingController
-                                .isEditModeEnabled.value,
-                            labelYn: true,
-                            hintText: "Unit Price",
-                            txtController: gasMeterReadingController
-                                .txtUnitPriceController,
-                          ),
-                        ),
+
                         gapHC(5),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -941,31 +1062,8 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                             ),
                           ),
                         ),
-                        gapHC(5),
-                        Row(
-                          children: [
-                            // Obx(
-                            //   () =>
-                            CupertinoCheckbox(
-                              side: const BorderSide(width: 2),
-                              value: gasMeterReadingController
-                                  .isFinalReading.value,
-                              // value: gasMeterReadingController.otherAmountReq.value,
-                              onChanged: gasMeterReadingController
-                                      .isEditModeEnabled.value
-                                  ? (_) {
-                                      gasMeterReadingController
-                                              .isFinalReading.value =
-                                          !gasMeterReadingController
-                                              .isFinalReading.value;
-                                    }
-                                  : (_) {},
-                              activeColor: ThemeColors.primaryBlueColor,
-                            ),
-                            // ),
-                            const Text("Final Reading"),
-                          ],
-                        ),
+                        // gapHC(5),
+
                         gapHC(5),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -1149,20 +1247,18 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                       title: "Net Amount (Inc Tax)",
                                       color: ThemeColors.primaryBlueColor),
                                   const Spacer(),
-                                  Obx(() =>
-                                  
-                                  Helper.dirhamFormatter(value: gasMeterReadingController
+                                  Obx(
+                                    () => Helper.dirhamFormatter(
+                                        value: gasMeterReadingController
                                             .netAmount.value
-                                            .toStringAsFixed(3) ),
-                                  //  Text(
-                                  //       gasMeterReadingController
-                                  //           .netAmount.value
-                                  //           .toStringAsFixed(3),
-                                  //       style: TextStyle(fontSize: 15),
-                                  //     )
-                                      
-                                      
-                                      ),
+                                            .toStringAsFixed(3)),
+                                    //  Text(
+                                    //       gasMeterReadingController
+                                    //           .netAmount.value
+                                    //           .toStringAsFixed(3),
+                                    //       style: TextStyle(fontSize: 15),
+                                    //     )
+                                  ),
                                 ],
                               ),
                             ),

@@ -6,15 +6,16 @@ class AssignUserRepository {
   // final LogInController logInController = Get.put(LogInController());
 
   Future<List<AssignUserModel>?> getAssignUserList({
-    required String token,
+    required String token,required String searchWord,
   }) async {
     String message = '';
 
     final Map<String, String> payLoad = {
       "COMPANY": Global.selectedCompanyCode,
       "DOCTYPE": "GCR",
-      "BUILDING_CODE": "",
-      "APARTMENT_CODE": "",
+      "BUILDING_CODE": searchWord,
+      "CONTRACT_NO": searchWord,
+      "APARTMENT_CODE":searchWord,
       "PAGE_NO": "1",
       "PAGE_SIZE": "50",
     };

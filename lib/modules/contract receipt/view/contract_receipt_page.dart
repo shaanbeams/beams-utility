@@ -200,11 +200,13 @@ class _ContractReceiptPageState extends State<ContractReceiptPage> {
                             flex: 3,
                             child: CustomSearchField(
                               labelColor: Colors.white,
-                              label: "Request Doc No",
+                              label: "Contract Receipt No",
                               labelYn: true,
-                              hintLabel: "Request Doc No",
+                              enablests: false,
+                              hintLabel: "Contract Receipt No",
                               controller: contractReceiptController.txtReqDocNo,
                               onSearchTap: () {
+                                              if(contractReceiptController.isEditModeEnabled.value==false){
                                 List searchColumn = [
                                   {
                                     "showItem": true,
@@ -245,7 +247,7 @@ class _ContractReceiptPageState extends State<ContractReceiptPage> {
                                   tableName: "GGASCONTRACTREC",
                                   filter: [],
                                   searchColumn: searchColumn,
-                                ));
+                                ));}
                               },
                             ),
                           ),

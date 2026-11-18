@@ -159,7 +159,6 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
           children: [
             Container(
               width: double.infinity,
-            
               decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -176,11 +175,11 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
               child: SafeArea(
                 bottom: false,
                 child: Padding(
-                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
                   child: Column(
                     children: [
                       Padding(
-                         padding: const EdgeInsets.only(top: 8, bottom: 8),
+                        padding: const EdgeInsets.only(top: 8, bottom: 8),
                         child: Row(
                           children: [
                             Bounce(
@@ -222,42 +221,47 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                                 flex: 3,
                                 child: CustomSearchField(
                                   labelColor: Colors.white,
-                                  label: "Request Doc No",
+                                  label: "Gas Meter Invoice Doc No",
                                   labelYn: true,
-                                  hintLabel: "Request Doc No",
+                                  enablests: false,
+                                  hintLabel: "Gas Meter Invoice Doc No",
                                   controller: gasMeterReadingInvoiceController
                                       .txtDocNumController,
                                   onSearchTap: () {
-                                    List searchColumn = [
-                                      {
-                                        "showItem": true,
-                                        "columnName": "DOCNO",
-                                        "showName": "Document No"
-                                      },
-                                      {
-                                        "showItem": true,
-                                        "columnName": "DOCTYPE",
-                                        "showName": "DocType"
-                                      },
-                                    ];
-                                    Get.dialog(lookUpDialogue(
-                                      callBackFn: (value) {
-                                        gasMeterReadingInvoiceController
-                                            .txtDocNumController
-                                            .text = value["DOCNO"];
-                                        gasMeterReadingInvoiceController
-                                            .fnGetLastGasMeterInvoice(
-                                                mode: "VIEW",
-                                                docNo: value["DOCNO"]);
-                                        Get.back();
-                                      },
-                                      tableName: "GINV",
-                                      filter: [],
-                                      searchColumn: searchColumn,
-                                    ));
+                                    if (gasMeterReadingInvoiceController
+                                            .isEditModeEnabled.value ==
+                                        false) {
+                                      List searchColumn = [
+                                        {
+                                          "showItem": true,
+                                          "columnName": "DOCNO",
+                                          "showName": "Document No"
+                                        },
+                                        {
+                                          "showItem": true,
+                                          "columnName": "DOCTYPE",
+                                          "showName": "DocType"
+                                        },
+                                      ];
+                                      Get.dialog(lookUpDialogue(
+                                        callBackFn: (value) {
+                                          gasMeterReadingInvoiceController
+                                              .txtDocNumController
+                                              .text = value["DOCNO"];
+                                          gasMeterReadingInvoiceController
+                                              .fnGetLastGasMeterInvoice(
+                                                  mode: "VIEW",
+                                                  docNo: value["DOCNO"]);
+                                          Get.back();
+                                        },
+                                        tableName: "GINV",
+                                        filter: [],
+                                        searchColumn: searchColumn,
+                                      ));
+                                    }
                                   },
                                 )
-                  
+
                                 // CustomSearchField(
                                 //   labelColor: Colors.white,
                                 //   label: "Request Doc No",
@@ -275,12 +279,13 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                                   _tHead(
                                     title: "Date : ",
                                   ),
-                  
+
                                   Obx(() => gasMeterReadingInvoiceController
                                           .isEditModeEnabled.value
                                       ? _tValue(
                                           value: Helper.convertDateFormat2(
-                                              dateTime: DateTime.now().toString()))
+                                              dateTime:
+                                                  DateTime.now().toString()))
                                       : _tValue(
                                           value: Helper.convertDateFormat1(
                                               dateTime:
@@ -327,7 +332,7 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                 //   padding: const EdgeInsets.only(right: 10),
                 //   child: CircleAvatar(
                 //     backgroundColor: ThemeColors.primaryBlueColor,
-                //     child: Image.asset(                                                                                                                                                                                                                                                                                                                                                                                                                 
+                //     child: Image.asset(
                 //       "assets/icons/Printer.png",
                 //       color: ThemeColors.white,
                 //       height: 30,
@@ -422,17 +427,17 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                               ),
                               Expanded(
                                 child: CustomSearchField(
-                                   labelColor: ThemeColors.primaryBlueColor,
-                    borderColor: Colors.grey.withOpacity(0.8),
-                    fieldColor: ThemeColors.white,
+                                  labelColor: ThemeColors.primaryBlueColor,
+                                  borderColor: Colors.grey.withOpacity(0.8),
+                                  fieldColor: ThemeColors.white,
                                   enablests: false,
 
                                   // enablests: gasMeterReadingInvoiceController.isEditModeEnabled.value,
 
                                   labelYn: true,
-                                  label: "Appartment code",
-                                  hintLabel: "Appartment code",
-                                   
+                                  label: "Apartment code",
+                                  hintLabel: "Apartment code",
+
                                   hintSize: 11,
                                   // onSearchTap: () {
                                   //   // if (contractController.isEditModeEnabled.value) {
@@ -483,8 +488,9 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 5),
                             child: PrimaryInputField(
-                              enablests: gasMeterReadingInvoiceController
-                                  .isEditModeEnabled.value,
+                              enablests: false,
+                              // enablests: gasMeterReadingInvoiceController
+                              //     .isEditModeEnabled.value,
                               labelYn: true,
                               hintText: "Building Name",
                               txtController: gasMeterReadingInvoiceController
@@ -517,8 +523,9 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                               children: [
                                 Expanded(
                                   child: PrimaryInputField(
-                                    enablests: gasMeterReadingInvoiceController
-                                        .isEditModeEnabled.value,
+                                    enablests: false,
+                                    // enablests: gasMeterReadingInvoiceController
+                                    //     .isEditModeEnabled.value,
                                     labelYn: true,
                                     hintText: "ContractNo",
                                     txtController:
@@ -529,9 +536,9 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                                 gapWC(10),
                                 Expanded(
                                   child: PrimaryInputField(
-                                      enablests:
-                                          gasMeterReadingInvoiceController
-                                              .isEditModeEnabled.value,
+                                      enablests: false,
+                                      // enablests: gasMeterReadingInvoiceController
+                                      //     .isEditModeEnabled.value,
                                       labelYn: true,
                                       hintText: "Gas Meter No.",
                                       txtController:
@@ -545,8 +552,9 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             child: PrimaryInputField(
-                              enablests: gasMeterReadingInvoiceController
-                                  .isEditModeEnabled.value,
+                              enablests: false,
+                              // enablests: gasMeterReadingInvoiceController
+                              //     .isEditModeEnabled.value,
                               labelYn: true,
                               hintText: "Conversion Factor",
                               txtController: gasMeterReadingInvoiceController
@@ -556,8 +564,9 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 5),
                             child: PhoneNumberField(
-                              enablests: gasMeterReadingInvoiceController
-                                  .isEditModeEnabled.value,
+                              enablests: false,
+                              // enablests: gasMeterReadingInvoiceController
+                              //     .isEditModeEnabled.value,
                               labelYn: true,
                               hintLabel: "Mobile no.",
                               controller: gasMeterReadingInvoiceController
@@ -567,8 +576,9 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 5),
                             child: PrimaryInputField(
-                              enablests: gasMeterReadingInvoiceController
-                                  .isEditModeEnabled.value,
+                              enablests: false,
+                              // enablests: gasMeterReadingInvoiceController
+                              //     .isEditModeEnabled.value,
                               labelYn: true,
                               hintText: "Tenant name",
                               txtController: gasMeterReadingInvoiceController
@@ -597,8 +607,9 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                               children: [
                                 Expanded(
                                   child: PrimaryInputField(
-                                    enablests: gasMeterReadingInvoiceController
-                                        .isEditModeEnabled.value,
+                                    enablests: false,
+                                    // enablests: gasMeterReadingInvoiceController
+                                    //     .isEditModeEnabled.value,
                                     labelYn: true,
                                     hintText: "Outstanding amount",
                                     txtController:
@@ -609,8 +620,9 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                                 gapWC(10),
                                 Expanded(
                                   child: PrimaryInputField(
-                                    enablests: gasMeterReadingInvoiceController
-                                        .isEditModeEnabled.value,
+                                    enablests: false,
+                                    // enablests: gasMeterReadingInvoiceController
+                                    //     .isEditModeEnabled.value,
                                     labelYn: true,
                                     hintText: "Last Reading",
                                     txtController:
@@ -624,8 +636,9 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 5),
                             child: PrimaryInputField(
-                              enablests: gasMeterReadingInvoiceController
-                                  .isEditModeEnabled.value,
+                              enablests: false,
+                              // enablests: gasMeterReadingInvoiceController
+                              //     .isEditModeEnabled.value,
                               labelYn: true,
                               hintText: "Last paid amount",
                               txtController: gasMeterReadingInvoiceController
@@ -674,13 +687,13 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                                           padding: const EdgeInsets.only(
                                               left: 10, right: 3),
                                           child: Bounce(
-                                            onPressed: () async {
+                                            onPressed: () {
                                               // gasMeterReadingInvoiceController.isEditModeEnabled.value
                                               //     ? () async {
-                                              var date =
-                                                  await showCustomDatePicker(
-                                                      date: DateTime.now()
-                                                          .toString());
+                                              // var date =
+                                              // await showCustomDatePicker(
+                                              //     date: DateTime.now()
+                                              //         .toString());
                                             },
                                             // gasMeterReadingInvoiceController.contractDate.value =
                                             //     date;
@@ -747,11 +760,11 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                                         child: Bounce(
                                           onPressed: () async {
                                             // gasMeterReadingInvoiceController.isEditModeEnabled.value
-                                            //     ? () async {
-                                            var date =
-                                                await showCustomDatePicker(
-                                                    date: DateTime.now()
-                                                        .toString());
+                                            // //     ? () async {
+                                            // var date =
+                                            //     await showCustomDatePicker(
+                                            //         date: DateTime.now()
+                                            //             .toString());
                                           },
                                           // gasMeterReadingInvoiceController.contractDate.value =
                                           //     date;
@@ -798,8 +811,9 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                                 Expanded(
                                   child: PrimaryInputField(
                                     textType: TextInputType.number,
-                                    enablests: gasMeterReadingInvoiceController
-                                        .isEditModeEnabled.value,
+                                           enablests:false,
+                              // enablests: gasMeterReadingInvoiceController
+                              //     .isEditModeEnabled.value,
                                     labelYn: true,
                                     hintText: "Current Reading",
                                     txtController:
@@ -831,8 +845,9 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                               children: [
                                 Expanded(
                                   child: PrimaryInputField(
-                                    enablests: gasMeterReadingInvoiceController
-                                        .isEditModeEnabled.value,
+                                          enablests:false,
+                              // enablests: gasMeterReadingInvoiceController
+                              //     .isEditModeEnabled.value,
                                     labelYn: true,
                                     hintText: "Deposit",
                                     txtController:
@@ -843,8 +858,9 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                                 gapWC(10),
                                 Expanded(
                                   child: PrimaryInputField(
-                                    enablests: gasMeterReadingInvoiceController
-                                        .isEditModeEnabled.value,
+                                      enablests:false,
+                              // enablests: gasMeterReadingInvoiceController
+                              //     .isEditModeEnabled.value,
                                     labelYn: true,
                                     hintText: "Consumption",
                                     txtController:
@@ -858,8 +874,9 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 5),
                             child: PrimaryInputField(
-                              enablests: gasMeterReadingInvoiceController
-                                  .isEditModeEnabled.value,
+                                  enablests:false,
+                              // enablests: gasMeterReadingInvoiceController
+                              //     .isEditModeEnabled.value,
                               labelYn: true,
                               hintText: "Unit Price",
                               txtController: gasMeterReadingInvoiceController
@@ -877,15 +894,17 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                                 value: gasMeterReadingInvoiceController
                                     .isFinalReading.value,
                                 // value: gasMeterReadingInvoiceController.otherAmountReq.value,
-                                onChanged: gasMeterReadingInvoiceController
-                                        .isEditModeEnabled.value
-                                    ? (_) {
-                                        gasMeterReadingInvoiceController
-                                                .isFinalReading.value =
-                                            !gasMeterReadingInvoiceController
-                                                .isFinalReading.value;
-                                      }
-                                    : (_) {},
+                                onChanged:
+                                //  gasMeterReadingInvoiceController
+                                //         .isEditModeEnabled.value
+                                //     ? (_) {
+                                //         gasMeterReadingInvoiceController
+                                //                 .isFinalReading.value =
+                                //             !gasMeterReadingInvoiceController
+                                //                 .isFinalReading.value;
+                                //       }
+                                    // :                                                                                                                                                                                                                                    ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                    (_) {},
                                 activeColor: ThemeColors.primaryBlueColor,
                               ),
                               // ),

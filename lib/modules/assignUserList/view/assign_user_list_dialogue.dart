@@ -26,7 +26,7 @@ class _AssignUserListDialogueState extends State<AssignUserListDialogue> {
   ContractController contractController = Get.put(ContractController(),permanent: true);
   @override
   void initState() {
-    assignUserController.fnGetAssignUserList();
+    assignUserController.fnGetAssignUserList(searchWord: "");
     super.initState();
   }
 
@@ -94,9 +94,10 @@ class _AssignUserListDialogueState extends State<AssignUserListDialogue> {
                   ),
                   borderRadius: BorderRadius.circular(50),
                   onChanged: (value) {
-                    assignUserController.findAssigner(searchWord: value);
+                     assignUserController.fnGetAssignUserList(searchWord: value);
+                    // assignUserController.findAssigner(searchWord: value);
                   },
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.text,
                   
                 ),
               ),

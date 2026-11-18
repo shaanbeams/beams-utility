@@ -164,12 +164,14 @@ class _GasMeterReadingReceiptPageState
                                   flex: 3,
                                   child: CustomSearchField(
                                     labelColor: Colors.white,
-                                    label: "Request Doc No",
+                                    label: "Gas Meter Receipt Doc No",
                                     labelYn: true,
-                                    hintLabel: "Request Doc No",
+                                    enablests: false,
+                                    hintLabel: "Gas Meter Receipt Doc No",
                                     controller: gasMeterReadingReceiptController
                                         .txtDocNumController,
                                     onSearchTap: () {
+              if(gasMeterReadingReceiptController.isEditModeEnabled.value==false){
                                       List searchColumn = [
                                         {
                                           "showItem": true,
@@ -197,7 +199,7 @@ class _GasMeterReadingReceiptPageState
                                         filter: [],
                                         searchColumn: searchColumn,
                                       ));
-                                    },
+                                     } },
                                   )
                     
                                   //  CustomSearchField(
@@ -341,36 +343,36 @@ class _GasMeterReadingReceiptPageState
                               hintSize: 11,
                               onSearchTap: () {
                                 // if (contractController.isEditModeEnabled.value) {
-                                List searchColumn = [
-                                  {
-                                    "showItem": true,
-                                    "columnName": "BUILDING_CODE",
-                                    "showName": "Building Code"
-                                  },
-                                  {
-                                    "showItem": true,
-                                    "columnName": "DESCP",
-                                    "showName": "Description"
-                                  },
-                                ];
-                                Get.dialog(
-                                  barrierDismissible: false,
-                                  lookUpDialogue(
-                                    tableName: "GBUILDINGMASTER",
-                                    callBackFn: (value) {
-                                      gasMeterReadingReceiptController
-                                          .txtBuildingCodeController
-                                          .text = value["BUILDING_CODE"];
-                                      gasMeterReadingReceiptController
-                                          .txtBuildingNameController
-                                          .text = value["DESCP"];
+                                // List searchColumn = [
+                                //   {
+                                //     "showItem": true,
+                                //     "columnName": "BUILDING_CODE",
+                                //     "showName": "Building Code"
+                                //   },
+                                //   {
+                                //     "showItem": true,
+                                //     "columnName": "DESCP",
+                                //     "showName": "Description"
+                                //   },
+                                // ];
+                                // Get.dialog(
+                                //   barrierDismissible: false,
+                                //   lookUpDialogue(
+                                //     tableName: "GBUILDINGMASTER",
+                                //     callBackFn: (value) {
+                                //       gasMeterReadingReceiptController
+                                //           .txtBuildingCodeController
+                                //           .text = value["BUILDING_CODE"];
+                                //       gasMeterReadingReceiptController
+                                //           .txtBuildingNameController
+                                //           .text = value["DESCP"];
 
-                                      Get.back();
-                                    },
-                                    filter: [],
-                                    searchColumn: searchColumn,
-                                  ),
-                                );
+                                //       Get.back();
+                                //     },
+                                //     filter: [],
+                                //     searchColumn: searchColumn,
+                                //   ),
+                                // );
                                 // }
                               },
                               controller: gasMeterReadingReceiptController
@@ -393,38 +395,38 @@ class _GasMeterReadingReceiptPageState
                               hintSize: 11,
                               onSearchTap: () {
                                 // if (contractController.isEditModeEnabled.value) {
-                                List searchColumn = [
-                                  {
-                                    "showItem": true,
-                                    "columnName": "APARTMENT_CODE",
-                                    "showName": " Code"
-                                  },
-                                  // {"showItem": true, "columnName": "DESCP", "showName": "Description"},
-                                ];
-                                Get.dialog(
-                                  barrierDismissible: false,
-                                  lookUpDialogue(
-                                    tableName: "GAPARTMENTMASTER",
-                                    callBackFn: (value) {
-                                      gasMeterReadingReceiptController
-                                          .txtApartmentCodeController
-                                          .text = value["APARTMENT_CODE"];
+                                // List searchColumn = [
+                                //   {
+                                //     "showItem": true,
+                                //     "columnName": "APARTMENT_CODE",
+                                //     "showName": " Code"
+                                //   },
+                                //   // {"showItem": true, "columnName": "DESCP", "showName": "Description"},
+                                // ];
+                                // Get.dialog(
+                                //   barrierDismissible: false,
+                                //   lookUpDialogue(
+                                //     tableName: "GAPARTMENTMASTER",
+                                //     callBackFn: (value) {
+                                //       gasMeterReadingReceiptController
+                                //           .txtApartmentCodeController
+                                //           .text = value["APARTMENT_CODE"];
 
-                                      // Get.back();
-                                    },
-                                    filter: [
-                                      {
-                                        'Column': "BUILDING_CODE",
-                                        'Operator': '=',
-                                        'Value':
-                                            gasMeterReadingReceiptController
-                                                .txtBuildingCodeController.text,
-                                        'JoinType': 'AND'
-                                      },
-                                    ],
-                                    searchColumn: searchColumn,
-                                  ),
-                                );
+                                //       // Get.back();
+                                //     },
+                                //     filter: [
+                                //       {
+                                //         'Column': "BUILDING_CODE",
+                                //         'Operator': '=',
+                                //         'Value':
+                                //             gasMeterReadingReceiptController
+                                //                 .txtBuildingCodeController.text,
+                                //         'JoinType': 'AND'
+                                //       },
+                                //     ],
+                                //     searchColumn: searchColumn,
+                                //   ),
+                                // );
                                 // }
                               },
                               controller: gasMeterReadingReceiptController
@@ -557,35 +559,35 @@ class _GasMeterReadingReceiptPageState
                                     ),
                               ],
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 3),
-                              child: Bounce(
-                                onPressed: () async {
-                                  // gasMeterReadingReceiptController.isEditModeEnabled.value
-                                  //     ? () async {
-                                  var date = await showCustomDatePicker(
-                                      date: DateTime.now().toString());
-                                },
-                                // gasMeterReadingReceiptController.contractDate.value =
-                                //     date;
-                                //   }
-                                // : () {},
-                                duration: const Duration(milliseconds: 100),
-                                child: CircleAvatar(
-                                  radius: 20,
-                                  backgroundColor:
-                                      gasMeterReadingReceiptController
-                                              .isEditModeEnabled.value
-                                          ? ThemeColors.primaryBlueColor
-                                          : ThemeColors.grey,
-                                  child: Icon(
-                                    Icons.calendar_month_outlined,
-                                    color: ThemeColors.white,
-                                  ),
-                                ),
-                              ),
-                            )
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.only(left: 10, right: 3),
+                            //   child: Bounce(
+                            //     onPressed: () async {
+                            //       // gasMeterReadingReceiptController.isEditModeEnabled.value
+                            //       //     ? () async {
+                            //     //   var date = await showCustomDatePicker(
+                            //     //       date: DateTime.now().toString());
+                            //     // },
+                            //     // gasMeterReadingReceiptController.contractDate.value =
+                            //     //     date;
+                            //     //   }
+                            //     // : () {},
+                            //     duration: const Duration(milliseconds: 100),
+                            //     child: CircleAvatar(
+                            //       radius: 20,
+                            //       backgroundColor:
+                            //           gasMeterReadingReceiptController
+                            //                   .isEditModeEnabled.value
+                            //               ? ThemeColors.primaryBlueColor
+                            //               : ThemeColors.grey,
+                            //       child: Icon(
+                            //         Icons.calendar_month_outlined,
+                            //         color: ThemeColors.white,
+                            //       ),
+                            //     ),
+                            //   ),
+                            // )
                           ],
                         ),
                       ),
@@ -637,10 +639,20 @@ class _GasMeterReadingReceiptPageState
                       ),
                       gapHC(5),
                       Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Divider(
+                          color: Colors.grey.withOpacity(0.5),
+                          thickness: 1,
+                        ),
+                      ),
+                      Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
                         child: PrimaryInputField(
-                          enablests: gasMeterReadingReceiptController
-                              .isEditModeEnabled.value,
+                         
+                            // gasMeterReadingReceiptController
+                            //     .isEditModeEnabled.value,
+                            enablests: gasMeterReadingReceiptController
+                                .isEditModeEnabled.value,
                           labelYn: true,
                           hintText: "Received amount",
                           txtController: gasMeterReadingReceiptController
@@ -717,6 +729,9 @@ class _GasMeterReadingReceiptPageState
                                     .selectedPaymentMode.value ==
                                 "CREDITCARD",
                         child: CustomSearchField(
+                           
+                            // gasMeterReadingReceiptController
+                            //     .isEditModeEnabled.value,
                            labelColor: ThemeColors.primaryBlueColor,
                     borderColor: Colors.grey.withOpacity(0.8),
                     fieldColor: ThemeColors.white,

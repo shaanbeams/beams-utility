@@ -283,45 +283,47 @@ class _LoginPageState extends State<LoginPage> {
                     const Spacer(),
 
                     // Company & Year Info
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 12),
-                      child: Text.rich(
-                        TextSpan(
-                          text: 'You are logging in to\n ',
-                          children: [
-                            TextSpan(
-                              text: Global.selectedCompanyCodeWithName.isEmpty
-                                  ? "CompanyName\n"
-                                  : "${Global.selectedCompanyCodeWithName}\n",
-                              style: const TextStyle(
-                                color: ThemeColors.primaryBlueColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
+                    SafeArea(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 12),
+                        child: Text.rich(
+                          TextSpan(
+                            text: 'You are logging in to\n ',
+                            children: [
+                              TextSpan(
+                                text: Global.selectedCompanyCodeWithName.isEmpty
+                                    ? "CompanyName\n"
+                                    : "${Global.selectedCompanyCodeWithName}\n",
+                                style: const TextStyle(
+                                  color: ThemeColors.primaryBlueColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Get.to(() => CompanySelectionPage());
+                                  },
                               ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Get.to(() => CompanySelectionPage());
-                                },
-                            ),
-                            const TextSpan(text: ' for the year '),
-                            TextSpan(
-                              text: Global.selectedCompanyYear.isEmpty
-                                  ? "Year"
-                                  : Global.selectedCompanyYear,
-                              style: const TextStyle(
-                                color: ThemeColors.primaryBlueColor,
-                                fontWeight: FontWeight.bold,
+                              const TextSpan(text: ' for the year '),
+                              TextSpan(
+                                text: Global.selectedCompanyYear.isEmpty
+                                    ? "Year"
+                                    : Global.selectedCompanyYear,
+                                style: const TextStyle(
+                                  color: ThemeColors.primaryBlueColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Get.to(() => CompanySelectionPage());
+                                  },
                               ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Get.to(() => CompanySelectionPage());
-                                },
-                            ),
-                            const TextSpan(text: '.'),
-                          ],
+                              const TextSpan(text: '.'),
+                            ],
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
                       ),
                     ),
 

@@ -107,6 +107,41 @@ class GasMeterReadingController extends GetxController {
   var frontImage = Uint8List(0).obs;
   var backImage = Uint8List(0).obs;
 
+
+  var isCurrentReadingInvalid = true.obs;
+  var currentReadingErrorMsg = ''.obs;
+
+  bool validateCurrentReading() {
+
+    final text = txtCurrentReadingController.text.trim();
+    final last_reading= Helper.mfnDbl(txtLastReadingController.text);
+
+  
+
+    final value = double.tryParse(text);
+    if (value == null) {
+      isCurrentReadingInvalid.value = true;
+      currentReadingErrorMsg.value = "Please enter a valid number";
+      return false;
+    }
+    if(last_reading>=value){
+      isCurrentReadingInvalid.value = true;
+      currentReadingErrorMsg.value = "Please enter a valid reading";
+      return false;
+    }
+
+    // Example check: Current reading should not be less than previous reading
+    // if (value < previousReading.value) {
+    //   isCurrentReadingInvalid.value = true;
+    //   currentReadingErrorMsg.value = "Cannot be less than previous reading";
+    //   return false;
+    // }
+
+    isCurrentReadingInvalid.value = false;
+    currentReadingErrorMsg.value = '';
+    return true;
+  }
+
   //============================invoice====================================//
 
   RxList<ChargeRow> chargeRows = [

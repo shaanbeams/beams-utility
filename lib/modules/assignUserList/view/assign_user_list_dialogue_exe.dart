@@ -26,7 +26,7 @@ class _AssignUserListDialogueExeState extends State<AssignUserListDialogueExe> {
 
   @override
   void initState() {
-    assignUserController.fnGetAssignUserList();
+    assignUserController.fnGetAssignUserList(searchWord: "");
     super.initState();
   }
 
@@ -122,7 +122,7 @@ class _AssignUserListDialogueExeState extends State<AssignUserListDialogueExe> {
                       Spacer(),
                       Bounce(
                           onPressed: () {
-                            assignUserController.fnGetAssignUserList();
+                            assignUserController.fnGetAssignUserList(searchWord: "");
                           },
                           duration: Duration(milliseconds: 100),
                           child: Icon(Icons.refresh)),

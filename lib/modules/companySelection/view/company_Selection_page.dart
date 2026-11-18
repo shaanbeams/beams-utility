@@ -251,15 +251,17 @@ class CompanySelectionPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 40,
-                  width: 250,
-                  child: Center(
-                      child: PrimaryButton(
-                          buttonLabel: "Update",
-                          onPressed: () {
-                            Get.to(() => LoginPage());
-                          })),
+                SafeArea(
+                  child: SizedBox(
+                    height: 40,
+                    width: 250,
+                    child: Center(
+                        child: PrimaryButton(
+                            buttonLabel: "Update",
+                            onPressed: () {
+                              Get.to(() => LoginPage());
+                            })),
+                  ),
                 )
               ],
             ),

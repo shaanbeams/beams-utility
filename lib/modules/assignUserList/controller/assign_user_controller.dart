@@ -24,11 +24,11 @@ class AssignUserController extends GetxController {
 
   static AssignUserRepository assignUserRepository = AssignUserRepository();
 
-  fnGetAssignUserList() {
+  fnGetAssignUserList({required String searchWord}) {
     isInProgress.value = true;
     Helper.fngetTocken().then((token) {
       if (token != null) {
-        assignUserRepository.getAssignUserList(token: token).then((list) {
+        assignUserRepository.getAssignUserList(token: token,searchWord: searchWord).then((list) {
           isInProgress.value = false;
           _fnGetAssignUserListSuccess(assignUsersList: list ?? []);
         });

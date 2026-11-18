@@ -687,10 +687,13 @@ class _ContractPageState extends State<ContractPage>
                             labelColor: ThemeColors.white,
                             label: "Contract No.",
                             labelYn: true,
+                             enablests: false,
                             hintLabel: "Contract No.",
                             hintSize: 12,
+
                             onSearchTap: () {
-                              List searchColumn = [
+                          if(contractController.isEditModeEnabled.value==false){
+                               List searchColumn = [
                                 {
                                   "showItem": true,
                                   "columnName": "CONTRACT_NO",
@@ -731,8 +734,9 @@ class _ContractPageState extends State<ContractPage>
                                   searchColumn: searchColumn,
                                 ),
                               );
-                            },
-                          ),
+                            
+                          }})
+                          
                         ),
                       ],
                     ),

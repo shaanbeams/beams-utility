@@ -36,7 +36,8 @@ class Helper {
     final size = MediaQuery.of(context).size;
     final diagonal =
         sqrt((size.width * size.width) + (size.height * size.height));
-    return diagonal > 1100.0; // Adjust this value as needed for your use case
+    return diagonal > 2000.0; // Adjust this value as needed for your use case
+    // return diagonal > 1100.0; // Adjust this value as needed for your use case
   }
 
   /// Robust internal date parser to prevent FormatExceptions across all date formats
