@@ -905,10 +905,10 @@ class _ContractDisconnectionPageState extends State<ContractDisconnectionPage>
                                         enablests: false,
                                         hintText: "",
                                         txtRadius: 10,
-                                        disable: index != 0 &&
-                                            index != 6 &&
-                                            index != 7 &&
-                                            index != 8,
+                                        // enablests: index != 0 &&
+                                        //     index != 6 &&
+                                        //     index != 7 &&
+                                        //     index != 8,
                                         txtController: TextEditingController(
                                             text:
                                                 contractDisconnectionController
@@ -924,11 +924,11 @@ class _ContractDisconnectionPageState extends State<ContractDisconnectionPage>
                                         enablests: false,
                                         hintText: "",
                                         txtRadius: 10,
-                                        disable: index != 0 &&
-                                            index != 2 &&
-                                            index != 6 &&
-                                            index != 7 &&
-                                            index != 8,
+                                        // enablests: index != 0 &&
+                                        //     index != 2 &&
+                                        //     index != 6 &&
+                                        //     index != 7 &&
+                                        //     index != 8,
                                         txtController: TextEditingController(
                                             text:
                                                 contractDisconnectionController

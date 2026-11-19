@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounce/flutter_bounce.dart';
 import 'package:gas_utility_app/modules/contract/widgets/custom_bottom_nav_bar.dart';
@@ -57,7 +58,7 @@ class _GasMeterReadingReceiptPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         bottomNavigationBar: Obx(() => CustomBottomNavBar(
               fnonFirstButtonPressed: () {
@@ -100,7 +101,6 @@ class _GasMeterReadingReceiptPageState
             children: [
               Container(
                 width: double.infinity,
-              
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -117,7 +117,8 @@ class _GasMeterReadingReceiptPageState
                 child: SafeArea(
                   bottom: false,
                   child: Padding(
-                         padding: const EdgeInsets.fromLTRB(16, 8, 16, 12), // Reduced vertical padding
+                    padding: const EdgeInsets.fromLTRB(
+                        16, 8, 16, 12), // Reduced vertical padding
 
                     child: Column(
                       children: [
@@ -131,7 +132,7 @@ class _GasMeterReadingReceiptPageState
                                 },
                                 duration: const Duration(milliseconds: 100),
                                 child: const Padding(
-                                    padding: EdgeInsets.fromLTRB(0  , 0, 20, 0),
+                                    padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                                     child: Icon(
                                       Icons.arrow_back_ios_new_rounded,
                                       color: ThemeColors.white,
@@ -166,42 +167,46 @@ class _GasMeterReadingReceiptPageState
                                     labelColor: Colors.white,
                                     label: "Gas Meter Receipt Doc No",
                                     labelYn: true,
-                                    enablests: false,
+                                    enablests: true,
+                                    readonly: true,
                                     hintLabel: "Gas Meter Receipt Doc No",
                                     controller: gasMeterReadingReceiptController
                                         .txtDocNumController,
                                     onSearchTap: () {
-              if(gasMeterReadingReceiptController.isEditModeEnabled.value==false){
-                                      List searchColumn = [
-                                        {
-                                          "showItem": true,
-                                          "columnName": "DOCNO",
-                                          "showName": "Document No"
-                                        },
-                                        {
-                                          "showItem": true,
-                                          "columnName": "DOCTYPE",
-                                          "showName": "DocType"
-                                        },
-                                      ];
-                                      Get.dialog(lookUpDialogue(
-                                        callBackFn: (value) {
-                                          gasMeterReadingReceiptController
-                                              .txtDocNumController
-                                              .text = value["DOCNO"];
-                                          gasMeterReadingReceiptController
-                                              .fnGetLastGasMeterReceipt(
-                                                  mode: "VIEW",
-                                                  docNo: value["DOCNO"]);
-                                          Get.back();
-                                        },
-                                        tableName: "GREC",
-                                        filter: [],
-                                        searchColumn: searchColumn,
-                                      ));
-                                     } },
+                                      if (gasMeterReadingReceiptController
+                                              .isEditModeEnabled.value ==
+                                          false) {
+                                        List searchColumn = [
+                                          {
+                                            "showItem": true,
+                                            "columnName": "DOCNO",
+                                            "showName": "Document No"
+                                          },
+                                          {
+                                            "showItem": true,
+                                            "columnName": "DOCTYPE",
+                                            "showName": "DocType"
+                                          },
+                                        ];
+                                        Get.dialog(lookUpDialogue(
+                                          callBackFn: (value) {
+                                            gasMeterReadingReceiptController
+                                                .txtDocNumController
+                                                .text = value["DOCNO"];
+                                            gasMeterReadingReceiptController
+                                                .fnGetLastGasMeterReceipt(
+                                                    mode: "VIEW",
+                                                    docNo: value["DOCNO"]);
+                                            Get.back();
+                                          },
+                                          tableName: "GREC",
+                                          filter: [],
+                                          searchColumn: searchColumn,
+                                        ));
+                                      }
+                                    },
                                   )
-                    
+
                                   //  CustomSearchField(
                                   //   labelColor: Colors.white,
                                   //   label: "Request Doc No",
@@ -221,7 +226,8 @@ class _GasMeterReadingReceiptPageState
                                     ),
                                     _tValue(
                                         value: Helper.convertDateFormat2(
-                                            dateTime: DateTime.now().toString())),
+                                            dateTime:
+                                                DateTime.now().toString())),
                                   ],
                                 ),
                               ),
@@ -278,9 +284,9 @@ class _GasMeterReadingReceiptPageState
                         ),
                       ),
                       CustomSearchField(
-                         labelColor: ThemeColors.primaryBlueColor,
-                    borderColor: Colors.grey.withOpacity(0.8),
-                    fieldColor: ThemeColors.white,
+                       
+                       
+                        fieldColor: ThemeColors.white,
                         enablests: false,
                         // enablests: gasMeterReadingReceiptController.isEditModeEnabled.value,
                         labelYn: true,
@@ -330,16 +336,16 @@ class _GasMeterReadingReceiptPageState
                         children: [
                           Expanded(
                             child: CustomSearchField(
-                               labelColor: ThemeColors.primaryBlueColor,
-                    borderColor: Colors.grey.withOpacity(0.8),
-                    fieldColor: ThemeColors.white,
+                              labelColor: ThemeColors.primaryBlueColor,
+                              borderColor: Colors.grey.withOpacity(0.8),
+                              fieldColor: ThemeColors.white,
                               enablests: false,
 
                               // enablests: gasMeterReadingReceiptController.isEditModeEnabled.value,
                               labelYn: true,
                               label: "Building code",
                               hintLabel: "building code",
-                             
+
                               hintSize: 11,
                               onSearchTap: () {
                                 // if (contractController.isEditModeEnabled.value) {
@@ -381,9 +387,9 @@ class _GasMeterReadingReceiptPageState
                           ),
                           Expanded(
                             child: CustomSearchField(
-                               labelColor: ThemeColors.primaryBlueColor,
-                    borderColor: Colors.grey.withOpacity(0.8),
-                    fieldColor: ThemeColors.white,
+                              labelColor: ThemeColors.primaryBlueColor,
+                              borderColor: Colors.grey.withOpacity(0.8),
+                              fieldColor: ThemeColors.white,
                               enablests: false,
 
                               // enablests: gasMeterReadingReceiptController.isEditModeEnabled.value,
@@ -391,7 +397,7 @@ class _GasMeterReadingReceiptPageState
                               labelYn: true,
                               label: "Appartment code",
                               hintLabel: "Appartment code",
-                              
+
                               hintSize: 11,
                               onSearchTap: () {
                                 // if (contractController.isEditModeEnabled.value) {
@@ -480,7 +486,8 @@ class _GasMeterReadingReceiptPageState
                       ),
                       Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10, ),
+                            horizontal: 10,
+                          ),
                           child: SizedBox(
                             child: PrimaryInputField(
                               enablests: false,
@@ -495,7 +502,8 @@ class _GasMeterReadingReceiptPageState
                           )),
                       Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10,  ),
+                            horizontal: 10,
+                          ),
                           child: SizedBox(
                             child: PrimaryInputField(
                               enablests: false,
@@ -597,6 +605,7 @@ class _GasMeterReadingReceiptPageState
                           children: [
                             Expanded(
                               child: PrimaryInputField(
+                                    
                                 enablests: false,
 
                                 // enablests: gasMeterReadingReceiptController
@@ -610,6 +619,7 @@ class _GasMeterReadingReceiptPageState
                             gapWC(10),
                             Expanded(
                               child: PrimaryInputField(
+                                 
                                 enablests: false,
 
                                 // enablests: gasMeterReadingReceiptController
@@ -627,6 +637,7 @@ class _GasMeterReadingReceiptPageState
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
                         child: PrimaryInputField(
+                         
                           enablests: false,
                           // enablests: gasMeterReadingReceiptController
                           //     .isEditModeEnabled.value,
@@ -646,138 +657,157 @@ class _GasMeterReadingReceiptPageState
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: PrimaryInputField(
-                         
-                            // gasMeterReadingReceiptController
-                            //     .isEditModeEnabled.value,
-                            enablests: gasMeterReadingReceiptController
-                                .isEditModeEnabled.value,
-                          labelYn: true,
-                          hintText: "Received amount",
-                          txtController: gasMeterReadingReceiptController
-                              .txtReceivedAmtController,
-                          textType: TextInputType.number,
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text(
-                            "Payment Method",
-                            style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                        child: RadioMenuButton(
-                          style: const ButtonStyle(
-                            splashFactory: NoSplash.splashFactory,
-                          ),
-                          value: "CASH",
-                          onChanged: gasMeterReadingReceiptController
-                                      .isEditModeEnabled.value ==
-                                  true
-                              ? (value) {
-                                  setState(() {
-                                    selectedOption = value.toString();
-                                    gasMeterReadingReceiptController
-                                        .txtCreditCard
-                                        .clear();
-                                    gasMeterReadingReceiptController
-                                        .selectedPaymentMode.value = "CASH";
-                                  });
-                                }
-                              : (s) {},
-                          groupValue: gasMeterReadingReceiptController
-                              .selectedPaymentMode.value,
-                          child: const Text("Cash"),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                        child: RadioMenuButton(
-                          style: const ButtonStyle(
-                            splashFactory: NoSplash.splashFactory,
-                          ),
-                          value: "CREDITCARD",
-                          onChanged: gasMeterReadingReceiptController
-                                      .isEditModeEnabled.value ==
-                                  true
-                              ? (value) {
-                                  setState(() {
-                                    selectedOption = value.toString();
-                                    gasMeterReadingReceiptController
-                                        .selectedPaymentMode
-                                        .value = "CREDITCARD";
-                                  });
-                                }
-                              : (_) {},
-                          groupValue: gasMeterReadingReceiptController
-                              .selectedPaymentMode.value,
-                          child: const Text("Credit card"),
-                        ),
-                      ),
-                      Visibility(
-                        visible: selectedOption == "CREDITCARD" ||
-                            gasMeterReadingReceiptController
-                                    .selectedPaymentMode.value ==
-                                "CREDITCARD",
-                        child: CustomSearchField(
-                           
-                            // gasMeterReadingReceiptController
-                            //     .isEditModeEnabled.value,
-                           labelColor: ThemeColors.primaryBlueColor,
-                    borderColor: Colors.grey.withOpacity(0.8),
-                    fieldColor: ThemeColors.white,
-                          enablests: gasMeterReadingReceiptController
-                              .isEditModeEnabled.value,
-                          label: "Credit Card",
-                          labelYn: true,
-                          hintLabel: "Credit Card",
-                          
-                          hintSize: 11,
-                          onSearchTap: () {
-                            if (gasMeterReadingReceiptController
-                                    .isEditModeEnabled.value ==
-                                true) {
-                              List searchColumn = [
-                                {
-                                  "showItem": true,
-                                  "columnName": "CODE",
-                                  "showName": "Code"
-                                },
-                                {
-                                  "showItem": true,
-                                  "columnName": "DESCP",
-                                  "showName": "Description"
-                                },
-                              ];
-                              Get.dialog(
-                                barrierDismissible: false,
-                                lookUpDialogue(
-                                  tableName: "CREDITCARDMASTER",
-                                  filter: [],
-                                  callBackFn: (value) {
-                                    if (value != null) {
-                                      Get.back();
-                                      gasMeterReadingReceiptController
-                                          .txtCreditCard
-                                          .text = value["CODE"].toString();
-                                    }
-                                  },
-                                  searchColumn: searchColumn,
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: DottedBorder(
+                          dashPattern: [6, 3],
+                          strokeWidth: 2,
+                          color: ThemeColors.grey,
+                          radius: Radius.circular(30),
+                          padding: EdgeInsets.all(6),
+                          borderType: BorderType.RRect,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                  child: PrimaryInputField(
+                                    // gasMeterReadingReceiptController
+                                    //     .isEditModeEnabled.value,
+                                    enablests: gasMeterReadingReceiptController
+                                        .isEditModeEnabled.value,
+                                    labelYn: true,
+                                    hintText: "Received amount",
+                                    txtController: gasMeterReadingReceiptController
+                                        .txtReceivedAmtController,
+                                    textType: TextInputType.number,
+                                    autoFocus: true,
+                                  ),
                                 ),
-                              );
-                            }
-                          },
-                          controller:
-                              gasMeterReadingReceiptController.txtCreditCard,
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Text(
+                                      "Payment Method",
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                  child: RadioMenuButton(
+                                    style: const ButtonStyle(
+                                      splashFactory: NoSplash.splashFactory,
+                                    ),
+                                    value: "CASH",
+                                    onChanged: gasMeterReadingReceiptController
+                                                .isEditModeEnabled.value ==
+                                            true
+                                        ? (value) {
+                                            setState(() {
+                                              selectedOption = value.toString();
+                                              gasMeterReadingReceiptController
+                                                  .txtCreditCard
+                                                  .clear();
+                                              gasMeterReadingReceiptController
+                                                  .selectedPaymentMode
+                                                  .value = "CASH";
+                                            });
+                                          }
+                                        : (s) {},
+                                    groupValue: gasMeterReadingReceiptController
+                                        .selectedPaymentMode.value,
+                                    child: const Text("Cash"),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                  child: RadioMenuButton(
+                                    style: const ButtonStyle(
+                                      splashFactory: NoSplash.splashFactory,
+                                    ),
+                                    value: "CREDITCARD",
+                                    onChanged: gasMeterReadingReceiptController
+                                                .isEditModeEnabled.value ==
+                                            true
+                                        ? (value) {
+                                            setState(() {
+                                              selectedOption = value.toString();
+                                              gasMeterReadingReceiptController
+                                                  .selectedPaymentMode
+                                                  .value = "CREDITCARD";
+                                            });
+                                          }
+                                        : (_) {},
+                                    groupValue: gasMeterReadingReceiptController
+                                        .selectedPaymentMode.value,
+                                    child: const Text("Credit card"),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: selectedOption == "CREDITCARD" ||
+                                      gasMeterReadingReceiptController
+                                              .selectedPaymentMode.value ==
+                                          "CREDITCARD",
+                                  child: CustomSearchField(
+                                    enablests: 
+                                    gasMeterReadingReceiptController
+                                        .isEditModeEnabled.value,
+                                    labelColor: ThemeColors.primaryBlueColor,
+                                    borderColor: Colors.black,
+                                    fieldColor: ThemeColors.white,
+                                    readonly:true,
+                                    label: "Credit Card",
+                                    labelYn: true,
+                                    hintLabel: "Credit Card",
+                                    
+                                                    
+                                    hintSize: 11,
+                                    onSearchTap: () {
+                                      if (gasMeterReadingReceiptController
+                                              .isEditModeEnabled.value ==
+                                          true) {
+                                        List searchColumn = [
+                                          {
+                                            "showItem": true,
+                                            "columnName": "CODE",
+                                            "showName": "Code"
+                                          },
+                                          {
+                                            "showItem": true,
+                                            "columnName": "DESCP",
+                                            "showName": "Description"
+                                          },
+                                        ];
+                                        Get.dialog(
+                                          barrierDismissible: false,
+                                          lookUpDialogue(
+                                            tableName: "CREDITCARDMASTER",
+                                            filter: [],
+                                            callBackFn: (value) {
+                                              if (value != null) {
+                                                Get.back();
+                                                gasMeterReadingReceiptController
+                                                        .txtCreditCard.text =
+                                                    value["CODE"].toString();
+                                              }
+                                            },
+                                            searchColumn: searchColumn,
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    controller: gasMeterReadingReceiptController
+                                        .txtCreditCard,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                       gapHC(70)

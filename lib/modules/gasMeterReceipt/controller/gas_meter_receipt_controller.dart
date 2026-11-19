@@ -213,7 +213,7 @@ class GasMeterReadingReceiptController extends GetxController {
             "DOCNO": "",
             "DOCTYPE": Global.selectedDocType,
             "YEARCODE": Global.selectedCompanyYear,
-            "DOCDATE": Helper.convertDateFormat4(
+            "DOCDATE": Helper.convertDateFormat(
                 dateTime: selectedReadReceipt.docdate.toString()),
             "SMAN": "",
             "BILLCOLLECTOR": selectedReadReceipt.billcollector,

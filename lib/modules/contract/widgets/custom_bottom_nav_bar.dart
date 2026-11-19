@@ -47,9 +47,10 @@ class CustomBottomNavBar extends StatelessWidget {
             ? isEditIconEnabled == true
                 ? 110
                 : 85
-            : isEditIconEnabled == true
-                ? 80
-                : 50,
+            :80,
+            //  isEditIconEnabled == true
+            //     ? 80
+            //     : 80,
                 decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(

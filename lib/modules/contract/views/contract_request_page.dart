@@ -60,7 +60,7 @@ class ConnectionRequestPage extends StatelessWidget {
                   labelYn: true,
                   hintText: "Request No.",
                   txtController: contractController.txtReqNoController,
-                  enablests: contractController.isEditModeEnabled.value,
+                  enablests:false,
                 ),
                 SizedBox(
                   height: 10,
@@ -69,7 +69,7 @@ class ConnectionRequestPage extends StatelessWidget {
                   labelYn: true,
                   hintText: "Customer id",
                   txtController: contractController.txtCustomerIdController,
-                  enablests: contractController.isEditModeEnabled.value,
+                  enablests: false,
                 ),
                 Padding(
                   padding:
@@ -252,7 +252,7 @@ class ConnectionRequestPage extends StatelessWidget {
                         hintText: "Bulding Code",
                         txtController:
                             contractController.txtBuildingCodeController,
-                        enablests: contractController.isEditModeEnabled.value,
+                        enablests: false
                       ),
                     ),
                   ],

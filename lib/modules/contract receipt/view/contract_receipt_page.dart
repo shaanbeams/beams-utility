@@ -202,7 +202,8 @@ class _ContractReceiptPageState extends State<ContractReceiptPage> {
                               labelColor: Colors.white,
                               label: "Contract Receipt No",
                               labelYn: true,
-                              enablests: false,
+                              // enablests: false,
+                              readonly: true,
                               hintLabel: "Contract Receipt No",
                               controller: contractReceiptController.txtReqDocNo,
                               onSearchTap: () {

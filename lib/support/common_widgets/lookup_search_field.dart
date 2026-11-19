@@ -7,7 +7,7 @@ class CustomSearchField extends StatefulWidget {
     this.fieldColor,
     this.hintSize,
     this.labelColor,
-    this.borderColor, // Explicit border & theme color override
+    this.borderColor,
     this.marginM,
     this.labelYn = false,
     this.label,
@@ -15,6 +15,7 @@ class CustomSearchField extends StatefulWidget {
     this.onSearchTap,
     this.onChanged,
     this.enablests = true,
+    this.readonly = false,
   });
 
   final String hintLabel;
@@ -29,6 +30,7 @@ class CustomSearchField extends StatefulWidget {
   final Function(String)? onChanged;
   final Function()? onSearchTap;
   final bool? enablests;
+  final bool? readonly;
 
   @override
   State<CustomSearchField> createState() => _CustomSearchFieldState();
@@ -37,11 +39,14 @@ class CustomSearchField extends StatefulWidget {
 class _CustomSearchFieldState extends State<CustomSearchField> {
   @override
   Widget build(BuildContext context) {
-    // Falls back to labelColor, and defaults to white if neither is provided
-    final Color activeColor =widget.labelColor?? widget.borderColor  ?? Colors.white;
+    final bool isReadOnly = widget.readonly ?? false;
+    final bool isEnabled = widget.enablests ?? true;
+    final Color activeColor =
+        widget.borderColor ?? widget.labelColor ?? Colors.black;
 
     return Container(
-      margin: widget.marginM ?? const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+      margin: widget.marginM ??
+          const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -60,13 +65,14 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
             ),
           ],
           Container(
-            height: 36, // Slim compact height
+            height: 36,
             decoration: BoxDecoration(
-              // Fully transparent fill by default
               color: widget.fieldColor ?? Colors.transparent,
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: widget.borderColor ?? activeColor, // Solid white or black border
+                color: isEnabled
+                    ? activeColor
+                    : Colors.grey.withValues(alpha: 0.5),
                 width: 1.5,
               ),
             ),
@@ -75,13 +81,15 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
               children: [
                 Expanded(
                   child: TextField(
+                    readOnly: isReadOnly,
                     controller: widget.controller,
-                    enabled: widget.enablests ?? true,
+                    enabled: isEnabled,
+                    onTap: isReadOnly ? widget.onSearchTap : null,
                     onChanged: widget.onChanged,
                     cursorColor: activeColor,
                     style: TextStyle(
                       fontSize: widget.hintSize ?? 12,
-                      color: activeColor, // Solid white or black typed text
+                      color: activeColor,
                     ),
                     decoration: InputDecoration(
                       isDense: true,
@@ -92,23 +100,29 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
                       hintText: widget.hintLabel,
                       hintStyle: TextStyle(
                         fontSize: widget.hintSize ?? 12,
-                        // Matches the active border color with a soft opacity
-                        color: activeColor.withOpacity(0.6),
+                        color: activeColor.withValues(alpha: 0.6),
                       ),
                       border: InputBorder.none,
                     ),
                   ),
                 ),
-                if (widget.onSearchTap != null)
-                  InkWell(
-                    onTap: widget.onSearchTap,
+                if (widget.onSearchTap != null && isEnabled)
+                  Material(
+                    color: Colors.transparent,
                     borderRadius: BorderRadius.circular(10),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Icon(
-                        Icons.search,
-                        size: 18,
-                        color: activeColor,
+                    child: InkWell(
+                      onTap: widget.onSearchTap,
+                      borderRadius: BorderRadius.circular(10),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 6,
+                        ),
+                        child: Icon(
+                          Icons.search,
+                          size: 18,
+                          color: activeColor,
+                        ),
                       ),
                     ),
                   ),

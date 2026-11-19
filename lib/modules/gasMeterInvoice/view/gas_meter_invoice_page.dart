@@ -223,7 +223,8 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                                   labelColor: Colors.white,
                                   label: "Gas Meter Invoice Doc No",
                                   labelYn: true,
-                                  enablests: false,
+                                  enablests: true,
+                                  readonly: true,
                                   hintLabel: "Gas Meter Invoice Doc No",
                                   controller: gasMeterReadingInvoiceController
                                       .txtDocNumController,
@@ -649,6 +650,8 @@ class _GasMeterReadingInvoicePageState extends State<GasMeterReadingInvoicePage>
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 10),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                
                                 children: [
                                   Expanded(
                                     child: Row(

@@ -54,6 +54,7 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
   @override
   void dispose() {
     tabController.value.dispose();
+     
     super.dispose();
   }
 
@@ -221,40 +222,62 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                 labelColor: Colors.white,
                                 label: "Gas Meter Reading Doc No",
                                 labelYn: true,
-                                enablests: false,
+                                enablests: true,
+                                readonly: true,
                                 hintLabel: "Gas Meter Reading Doc No",
                                 controller: gasMeterReadingController
                                     .txtDocNumController,
                                 onSearchTap: () {
-                                                if(gasMeterReadingController.isEditModeEnabled.value==false){
-                                  List searchColumn = [
-                                    {
-                                      "showItem": true,
-                                      "columnName": "DOCNO",
-                                      "showName": "Document No"
-                                    },
-                                    {
-                                      "showItem": true,
-                                      "columnName": "DOCTYPE",
-                                      "showName": "DocType"
-                                    },
-                                  ];
-                                  Get.dialog(lookUpDialogue(
-                                    callBackFn: (value) {
-                                      gasMeterReadingController
-                                          .txtDocNumController
-                                          .text = value["DOCNO"];
-                                      gasMeterReadingController
-                                          .fnGetLastGasMeterReading(
-                                              mode: "VIEW",
-                                              docNo: value["DOCNO"]);
-                                      Get.back();
-                                    },
-                                    tableName: "GREADING",
-                                    filter: [],
-                                    searchColumn: searchColumn,
-                                  ));
-                                }},
+                                  if (gasMeterReadingController
+                                          .isEditModeEnabled.value ==
+                                      false) {
+                                    List searchColumn = [
+                                      {
+                                        "showItem": true,
+                                        "columnName": "DOCNO",
+                                        "showName": "Document No"
+                                      },
+                                      {
+                                        "showItem": true,
+                                        "columnName": "DOCTYPE",
+                                        "showName": "DocType"
+                                      },
+                                      {
+                                        "showItem": true,
+                                        "columnName": "BUILDING_CODE",
+                                        "showName": "Building"
+                                      },
+                                      {
+                                        "showItem": true,
+                                        "columnName": "APARTMENT_CODE",
+                                        "showName": "Apartment"
+                                      },
+                                    ];
+                                    Get.dialog(lookUpDialogue(
+                                      callBackFn: (value) {
+                                        gasMeterReadingController
+                                            .txtDocNumController
+                                            .text = value["DOCNO"];
+                                        gasMeterReadingController
+                                            .fnGetLastGasMeterReading(
+                                                mode: "VIEW",
+                                                docNo: value["DOCNO"]);
+                                        Get.back();
+                                      },
+                                      tableName: "GREADINGDET",
+                                      // tableName: "GREADING",
+                                      filter: [
+                                        {
+                                          'Column': "DOCTYPE",
+                                          'Operator': '=',
+                                          'Value': Global.selectedDocType,
+                                          'JoinType': 'AND'
+                                        },
+                                      ],
+                                      searchColumn: searchColumn,
+                                    ));
+                                  }
+                                },
                               )),
                           gapWC(10),
                           Expanded(
@@ -368,9 +391,12 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                             Expanded(
                               child: CustomSearchField(
                                 labelColor: ThemeColors.primaryBlueColor,
-                                borderColor: Colors.grey.withOpacity(0.8),
-                                enablests: gasMeterReadingController
-                                    .isEditModeEnabled.value,
+                                borderColor: Colors.black,
+                                enablests:
+                                    //  true,
+                                    gasMeterReadingController
+                                        .isEditModeEnabled.value,
+                                readonly: true,
                                 labelYn: true,
                                 label: "building code",
                                 hintLabel: "building code",
@@ -420,10 +446,11 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                             Expanded(
                               child: CustomSearchField(
                                 labelColor: ThemeColors.primaryBlueColor,
-                                borderColor: Colors.grey.withOpacity(0.8),
+                                borderColor: Colors.black,
                                 enablests: gasMeterReadingController
                                     .isEditModeEnabled.value,
                                 labelYn: true,
+                                readonly: true,
                                 label: "Apartment code",
                                 hintLabel: "Apartment code",
                                 fieldColor: ThemeColors.white,
@@ -482,9 +509,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5),
                           child: PrimaryInputField(
-                   // enablests: gasMeterReadingController
-                                  //     .isEditModeEnabled.value,
-                                      enablests: false,
+                            // enablests: gasMeterReadingController
+                            //     .isEditModeEnabled.value,
+                            enablests: false,
                             labelYn: true,
                             hintText: "Building Name",
                             txtController: gasMeterReadingController
@@ -517,9 +544,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                             children: [
                               Expanded(
                                 child: PrimaryInputField(
-                               // enablests: gasMeterReadingController
+                                  // enablests: gasMeterReadingController
                                   //     .isEditModeEnabled.value,
-                                      enablests: false,
+                                  enablests: false,
                                   labelYn: true,
                                   hintText: "ContractNo",
                                   txtController: gasMeterReadingController
@@ -529,9 +556,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                               gapWC(10),
                               Expanded(
                                 child: PrimaryInputField(
-                               // enablests: gasMeterReadingController
-                                  //     .isEditModeEnabled.value,
-                                      enablests: false,
+                                    // enablests: gasMeterReadingController
+                                    //     .isEditModeEnabled.value,
+                                    enablests: false,
                                     labelYn: true,
                                     hintText: "Gas Meter No.",
                                     txtController: gasMeterReadingController
@@ -544,9 +571,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: PrimaryInputField(
-                      // enablests: gasMeterReadingController
-                                  //     .isEditModeEnabled.value,
-                                      enablests: false,
+                            // enablests: gasMeterReadingController
+                            //     .isEditModeEnabled.value,
+                            enablests: false,
                             labelYn: true,
                             hintText: "Conversion Factor",
                             txtController: gasMeterReadingController
@@ -569,9 +596,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5),
                           child: PrimaryInputField(
-                     // enablests: gasMeterReadingController
-                                  //     .isEditModeEnabled.value,
-                                      enablests: false,
+                            // enablests: gasMeterReadingController
+                            //     .isEditModeEnabled.value,
+                            enablests: false,
                             labelYn: true,
                             hintText: "Tenant name",
                             txtController: gasMeterReadingController
@@ -600,9 +627,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                             children: [
                               Expanded(
                                 child: PrimaryInputField(
-                              // enablests: gasMeterReadingController
+                                  // enablests: gasMeterReadingController
                                   //     .isEditModeEnabled.value,
-                                      enablests: false,
+                                  enablests: false,
                                   labelYn: true,
                                   hintText: "Outstanding amount",
                                   txtController: gasMeterReadingController
@@ -614,7 +641,7 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                 child: PrimaryInputField(
                                   // enablests: gasMeterReadingController
                                   //     .isEditModeEnabled.value,
-                                      enablests: false,
+                                  enablests: false,
                                   labelYn: true,
                                   hintText: "Last Reading",
                                   txtController: gasMeterReadingController
@@ -627,9 +654,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5),
                           child: PrimaryInputField(
-                         // enablests: gasMeterReadingController
-                                  //     .isEditModeEnabled.value,
-                                      enablests: false,
+                            // enablests: gasMeterReadingController
+                            //     .isEditModeEnabled.value,
+                            enablests: false,
                             labelYn: true,
                             hintText: "Last paid amount",
                             txtController:
@@ -685,7 +712,7 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                             //     await showCustomDatePicker(
                                             //         date: DateTime.now()
                                             //             .toString());
-                                             ///ZAMIN COMMENTED THIS CODE FOR NOW AS IT WAS CAUSING AN ISSUE WITH THE DATE PICKER. PLEASE REVIEW AND FIX IF NEEDED.17/11/2026 END
+                                            ///ZAMIN COMMENTED THIS CODE FOR NOW AS IT WAS CAUSING AN ISSUE WITH THE DATE PICKER. PLEASE REVIEW AND FIX IF NEEDED.17/11/2026 END
                                           },
                                           // gasMeterReadingController.contractDate.value =
                                           //     date;
@@ -903,9 +930,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                     children: [
                                       Expanded(
                                         child: PrimaryInputField(
-                                           // enablests: gasMeterReadingController
-                                  //     .isEditModeEnabled.value,
-                                      enablests: false,
+                                          // enablests: gasMeterReadingController
+                                          //     .isEditModeEnabled.value,
+                                          enablests: false,
                                           labelYn: true,
                                           hintText: "Deposit",
                                           txtController:
@@ -916,9 +943,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                       gapWC(10),
                                       Expanded(
                                         child: PrimaryInputField(
-                                              // enablests: gasMeterReadingController
-                                  //     .isEditModeEnabled.value,
-                                      enablests: false,
+                                          // enablests: gasMeterReadingController
+                                          //     .isEditModeEnabled.value,
+                                          enablests: false,
                                           labelYn: true,
                                           hintText: "Consumption",
                                           txtController:
@@ -932,9 +959,9 @@ class _GasMeterReadingPageState extends State<GasMeterReadingPage>
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 5),
                                   child: PrimaryInputField(
-                               // enablests: gasMeterReadingController
-                                  //     .isEditModeEnabled.value,
-                                      enablests: false,
+                                    // enablests: gasMeterReadingController
+                                    //     .isEditModeEnabled.value,
+                                    enablests: false,
                                     labelYn: true,
                                     hintText: "Unit Price",
                                     txtController: gasMeterReadingController

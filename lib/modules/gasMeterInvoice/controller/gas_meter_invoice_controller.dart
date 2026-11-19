@@ -226,6 +226,7 @@ class GasMeterReadingInvoiceController extends GetxController {
     // viewModel.ReadingViewModel readingViewModel = selectedLastMeterReading;
     // viewModel.Table2 selectedReadingInvoice = readingViewModel.table2![0];
     // viewModel.Table1 t1ViewValue = readingViewModel.table1![0];
+    
 
     txtContractNoController.text = selectedReadingInvoice.partycode ?? "0";
     txtGasMeterController.text = selectedReadingInvoice.gasMeterNo ?? "0";

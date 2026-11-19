@@ -113,6 +113,7 @@ class GasReadingRepository {
     final Map<String, String> payLoad = {
       "COMPANY": Global.selectedCompanyCode,
       "DOCTYPE": docType ?? Global.selectedDocType, 
+      // "DOCTYPE": docType ?? Global.selectedDocType, 
       "DOCNO": docno,
       "YEARCODE": Global.selectedCompanyYear,
       "MODE": mode,

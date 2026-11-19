@@ -127,27 +127,57 @@ class TempReconnectionController extends GetxController {
     });
   }
 
-  fnGetLastTempContractReconnection(
-      {required String docNo, required String mode}) {
+  // fnGetLastTempContractReconnection(
+  //     {required String docNo, required String mode}) {
+  //   fnClear();
+  //   Helper.fngetTocken().then((token) {
+  //     if (token != null) {
+  //       tempContractReconnectionRepository
+  //           .fnGetLastTempContractReconnection(
+  //         token: token,
+  //         docno: docNo,
+  //         mode: mode,
+  //       )
+  //           .then((tempReconnection) {
+  //         if (tempReconnection != null) {
+  //           fnViewFill(tempReconnection: tempReconnection);
+  //           if (Get.isDialogOpen == true) {
+  //             Get.back();
+  //           }
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
+  Future<void> fnGetLastTempContractReconnection({
+    required String docNo,
+    required String mode,
+  }) async {
     fnClear();
-    Helper.fngetTocken().then((token) {
-      if (token != null) {
-        tempContractReconnectionRepository
-            .fnGetLastTempContractReconnection(
-          token: token,
-          docno: docNo,
-          mode: mode,
-        )
-            .then((tempReconnection) {
-          if (tempReconnection != null) {
-            fnViewFill(tempReconnection: tempReconnection);
-            if (Get.isDialogOpen == true) {
-              Get.back();
-            }
-          }
-        });
+
+    try {
+      final token = await Helper.fngetTocken();
+      if (token == null || token.isEmpty) {
+        return;
       }
-    });
+
+      final tempReconnection = await tempContractReconnectionRepository
+          .fnGetLastTempContractReconnection(
+        token: token,
+        docno: docNo,
+        mode: mode,
+      );
+
+      if (tempReconnection != null) {
+        fnViewFill(tempReconnection: tempReconnection);
+      }
+    } catch (e) {
+      logger.e("Failed to load temp reconnection: $e");
+    } finally {
+      if (Get.isDialogOpen == true) {
+        Get.back();
+      }
+    }
   }
 
   fnViewFill({required TempReconnectionViewModel tempReconnection}) {

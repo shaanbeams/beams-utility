@@ -687,7 +687,8 @@ class _ContractPageState extends State<ContractPage>
                             labelColor: ThemeColors.white,
                             label: "Contract No.",
                             labelYn: true,
-                             enablests: false,
+                            //  enablests: false,
+                             readonly: true,
                             hintLabel: "Contract No.",
                             hintSize: 12,
 

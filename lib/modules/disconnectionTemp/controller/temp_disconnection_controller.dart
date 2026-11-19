@@ -123,28 +123,65 @@ class TempDisconnectionController extends GetxController {
     });
   }
 
-  fnGetLastTempContractDisconnection(
-      {required String docNo, required String mode}) {
-    fnClear();
-    Helper.fngetTocken().then((token) {
-      if (token != null) {
-        tempContractDisconnectionRepository
-            .fnGetLastTempContractDisconnection(
-          token: token,
-          docno: docNo,
-          mode: mode,
-        )
-            .then((tempDisconnection) {
-          if (tempDisconnection != null) {
-            fnViewFill(tempDisconnection: tempDisconnection);
-            if (Get.isDialogOpen == true) {
-              Get.back();
-            }
-          }
-        });
-      }
-    });
+  // fnGetLastTempContractDisconnection(
+  //     {required String docNo, required String mode}) {
+  //   fnClear();
+  //   Helper.fngetTocken().then((token) {
+  //     if (token != null) {
+  //       tempContractDisconnectionRepository
+  //           .fnGetLastTempContractDisconnection(
+  //         token: token,
+  //         docno: docNo,
+  //         mode: mode,
+  //       )
+  //           .then((tempDisconnection) {
+  //         if (tempDisconnection != null) {
+  //           fnViewFill(tempDisconnection: tempDisconnection);
+  //           if (Get.isDialogOpen == true) {
+  //             Get.back();
+  //           }
+  //         }else{
+           
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
+
+
+  Future<void> fnGetLastTempContractDisconnection({
+  required String docNo,
+  required String mode,
+}) async {
+  fnClear();
+
+  try {
+    final token = await Helper.fngetTocken();
+    if (token == null || token.isEmpty) {
+      return;
+    }
+
+    final tempDisconnection =
+        await tempContractDisconnectionRepository.fnGetLastTempContractDisconnection(
+      token: token,
+      docno: docNo,
+      mode: mode,
+    );
+
+    if (tempDisconnection != null) {
+      fnViewFill(tempDisconnection: tempDisconnection);
+    } else {
+      // Optional: handle no previous temporary disconnection found
+      // e.g. show a snackbar or keep fields cleared
+    }
+  } catch (e) {
+    logger.e("Failed to load temp disconnection: $e");
+  } finally {
+    if (Get.isDialogOpen == true) {
+      Get.back();
+    }
   }
+}
  
 
   fnViewFill({required TempDisconnectionViewModel tempDisconnection}) {

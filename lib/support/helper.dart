@@ -142,6 +142,34 @@ static  Widget dirhamFormatter(
   // Output: "2025-01-25 14:30:45.000"
   //
 
+
+
+
+  static String convertDateFormat({required String dateTime}) {
+    if (dateTime.trim().isEmpty) {
+      return '';
+    }
+
+    try {
+      DateTime parsedDate;
+
+      try {
+        // Try parsing ISO format first (e.g., 2026-10-26T11:45:42)
+        parsedDate = DateTime.parse(dateTime.trim());
+      } catch (_) {
+        // Fallback for your JSON format: "09/10/2026 12:00:00 AM"
+        parsedDate = DateFormat('dd/MM/yyyy hh:mm:ss a').parse(dateTime.trim());
+      }
+
+      return DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(parsedDate);
+    } catch (e) {
+      // Log or handle error, returning empty string or fallback instead of null
+      print('convertDateFormat4 failed for "$dateTime": $e');
+      return '';
+    }
+  }
+
+
   static convertDateFormat4({required String dateTime}) {
     // DateTime parsedDate = DateFormat("dd/MM/yyyy hh:mm:ss a").parse(dateTime);
     // String formattedDate = DateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(parsedDate);

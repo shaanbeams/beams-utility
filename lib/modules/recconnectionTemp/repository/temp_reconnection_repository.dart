@@ -32,34 +32,78 @@ class TempContractReconnectionRepository {
 
 
   Future<TempReconnectionViewModel?> fnGetLastTempContractReconnection({
-    required String token,
-    required String mode,
-    required String docno,
-  }) async {
-    final Map<String, String> payLoad = {
-      "COMPANY": Global.selectedCompanyCode,
-      "DOCTYPE": Global.selectedDocType,
-      "DOCNO": docno,
-      "YEARCODE": Global.selectedCompanyYear,
-      "MODE": mode,
-      "CREATE_USER": Global.userCD
+  required String token,
+  required String mode,
+  required String docno,
+}) async {
+  final Map<String, String> payLoad = {
+    "COMPANY": Global.selectedCompanyCode,
+    "DOCTYPE": Global.selectedDocType,
+    "DOCNO": docno,
+    "YEARCODE": Global.selectedCompanyYear,
+    "MODE": mode,
+    "CREATE_USER": Global.userCD,
+  };
 
-    };
-    final response = await ApiService()
-        .post(url: "/api/ViewTemporaryReconnection", payloadObj: payLoad, token: token)
-        .catchError((error) {});
+  try {
+    final response = await ApiService().post(
+      url: "/api/ViewTemporaryReconnection",
+      payloadObj: payLoad,
+      token: token,
+    );
 
     logger.d(response);
 
-    if (response != null) {
-      final data = response;
-      if (data != null) {
-        return TempReconnectionViewModel.fromJson(data[0]["Table1"][0]);
-      } else {
-        return null;
+    if (response is List && response.isNotEmpty) {
+      final firstItem = response[0];
+      if (firstItem is Map && firstItem["Table1"] is List) {
+        final List table1 = firstItem["Table1"];
+        if (table1.isNotEmpty && table1[0] is Map<String, dynamic>) {
+          return TempReconnectionViewModel.fromJson(table1[0]);
+        }
       }
-    } else {
-      return null;
     }
+
+    return null;
+  } catch (error, stackTrace) {
+    logger.e(
+      "fnGetLastTempContractReconnection error: $error",
+      stackTrace: stackTrace,
+    );
+    return null;
   }
+}
+
+
+  // Future<TempReconnectionViewModel?> fnGetLastTempContractReconnection({
+  //   required String token,
+  //   required String mode,
+  //   required String docno,
+  // }) async {
+  //   final Map<String, String> payLoad = {
+  //     "COMPANY": Global.selectedCompanyCode,
+  //     "DOCTYPE": Global.selectedDocType,
+  //     "DOCNO": docno,
+  //     "YEARCODE": Global.selectedCompanyYear,
+  //     "MODE": mode,
+  //     "CREATE_USER": Global.userCD
+
+  //   };
+  //   final response = await ApiService()
+  //       .post(url: "/api/ViewTemporaryReconnection", payloadObj: payLoad, token: token)
+  //       .catchError((error) {});
+
+  //   logger.d(response);
+
+  //   if (response != null) {
+  //     final data = response;
+  //     if (data != null) {
+  //       return TempReconnectionViewModel.fromJson(data[0]["Table1"][0]);
+  //     } else {
+  //       return null;
+  //     }
+  //   } else {
+  //     return null;
+  //   }
+  // }
 }

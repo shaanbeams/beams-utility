@@ -48,7 +48,12 @@ class GasMeterReadingController extends GetxController {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       showLoadingDialog();
     });
+    print(
+        "value assigned to variable...........................................");
     contractReadingDocType = Global.selectedDocType;
+    print(
+        "value assigned to variable.........................${Global.selectedDocType}");
+    print("...........................................");
     fnGetLastGasMeterReading(mode: "LAST", docNo: "");
     fnGetGasDocMaster(docType: Global.selectedDocType).then(
       (value) {
@@ -64,6 +69,22 @@ class GasMeterReadingController extends GetxController {
     }
 
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    showLoadingDialog();
+    contractReadingDocType = Global.selectedDocType;
+    fnGetLastGasMeterReading(mode: "LAST", docNo: "");
+
+    fnGetGasDocMaster(docType: Global.selectedDocType).then((value) {
+      if (value != null && value.isNotEmpty) {
+        Global.ccCode = value[0]["CCCODE"];
+        Global.divCode = value[0]["DIVCODE"];
+        Global.brnCode = value[0]["BRNCODE"];
+      }
+    });
   }
 
   //======================textEditing Controllers========================//
@@ -107,16 +128,12 @@ class GasMeterReadingController extends GetxController {
   var frontImage = Uint8List(0).obs;
   var backImage = Uint8List(0).obs;
 
-
   var isCurrentReadingInvalid = true.obs;
   var currentReadingErrorMsg = ''.obs;
 
   bool validateCurrentReading() {
-
     final text = txtCurrentReadingController.text.trim();
-    final last_reading= Helper.mfnDbl(txtLastReadingController.text);
-
-  
+    final last_reading = Helper.mfnDbl(txtLastReadingController.text);
 
     final value = double.tryParse(text);
     if (value == null) {
@@ -124,7 +141,7 @@ class GasMeterReadingController extends GetxController {
       currentReadingErrorMsg.value = "Please enter a valid number";
       return false;
     }
-    if(last_reading>=value){
+    if (last_reading >= value) {
       isCurrentReadingInvalid.value = true;
       currentReadingErrorMsg.value = "Please enter a valid reading";
       return false;
@@ -452,7 +469,7 @@ class GasMeterReadingController extends GetxController {
     txtLastReadingController.text = t2ViewValue.lastReading.toString();
     txtConsumptionController.text = t2ViewValue.totalUnit.toString();
     txtDocNumController.text = t2ViewValue.docno.toString();
-     
+
     lastReadingDate.value =
         Helper.convertDateFormat1(dateTime: t2ViewValue.lastReadingDate ?? "0");
     docdate.value = t2ViewValue.currReadingDate ?? "0";
@@ -706,7 +723,8 @@ class GasMeterReadingController extends GetxController {
   }
 
   fnFillApartmentDetails() {
-        if (selectedApartmentData.table2!.isEmpty || selectedApartmentData.table2 == null) {
+    if (selectedApartmentData.table2!.isEmpty ||
+        selectedApartmentData.table2 == null) {
       return;
     }
     Table2? t2Data = selectedApartmentData.table2?[0];
@@ -857,7 +875,8 @@ class GasMeterReadingController extends GetxController {
   }
 
   fnFillApartmentDetailsDailyBasis() {
-     if (selectedApartmentData.table2!.isEmpty || selectedApartmentData.table2 == null) {
+    if (selectedApartmentData.table2!.isEmpty ||
+        selectedApartmentData.table2 == null) {
       return;
     }
     Table2? t2Data = selectedApartmentData.table2?[0];
